@@ -26,12 +26,4 @@ public class ServiceModule {
         return new VolleyWebService(context);
     }
 
-    @Provides
-    @Singleton
-    ExecutorService provideexecutor(){
-        return Executors.newFixedThreadPool(20);
-    }
-
-
-
 }

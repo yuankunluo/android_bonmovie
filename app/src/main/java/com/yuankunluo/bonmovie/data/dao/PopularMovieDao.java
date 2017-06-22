@@ -20,7 +20,7 @@ import java.util.List;
 public interface PopularMovieDao {
 
     @Query("SELECT * FROM PopularMovie WHERE page = :page")
-    PopularMovie[] getPopularMoviesAtPage(int page);
+    List<PopularMovie> getPopularMoviesAtPage(int page);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPopularMovies(PopularMovie... movies);

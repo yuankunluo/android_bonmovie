@@ -1,10 +1,11 @@
 package com.yuankunluo.bonmovie.dagger2.module;
 
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
-import com.yuankunluo.bonmovie.data.repository.PopularMovieRepository;
+import com.yuankunluo.bonmovie.data.repository.BonMovieRepository;
 import com.yuankunluo.bonmovie.services.VolleyWebService;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
 
@@ -18,11 +19,18 @@ import dagger.Provides;
 @Module
 public class RepositoryModule {
 
+    @Provides
+    ExecutorService provideExecutor(){
+        return Executors.newSingleThreadExecutor();
+    }
+
+
+
     @Singleton
     @Provides
-    PopularMovieRepository provideMovieRepository(VolleyWebService webService, PopularMovieDao movieDao,
-                                                  ExecutorService executorService){
-        return new PopularMovieRepository(webService, movieDao, executorService);
+    BonMovieRepository provideMovieRepository(VolleyWebService webService, PopularMovieDao movieDao,
+                                              ExecutorService executorService){
+        return new BonMovieRepository(webService, movieDao, executorService);
     }
 
 }

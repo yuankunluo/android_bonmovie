@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pager_tab_strip_padding">10dp</dimen>
+    <dimen name="pager_tab_strip_padding_bottom">12dp</dimen>
+    <dimen name="pager_tab_strip_padding_left_right">12dp</dimen>
+    <dimen name="tab_height">48dp</dimen>
 </resources>
