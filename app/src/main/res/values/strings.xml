@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BonMovie</string>
+
+    <!--Pager Tab tittles-->
+    <string name="tab_title_popular_movie">Popular Movies</string>
+    <string name="tab_title_top_rated_movie">Top Rated Movie</string>
+    <string name="tab_title_my_favorite">My Favorite</string>
 </resources>
