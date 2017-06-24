@@ -1,5 +1,6 @@
 package com.yuankunluo.bonmovie.viewmodel;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
@@ -17,7 +18,9 @@ import javax.inject.Inject;
 
 public class PopularMovieViewModel extends ViewModel {
 
-    private MutableLiveData<List<PopularMovie>> mPopularMovies;
+    private final String TAG = PopularMovieViewModel.class.getSimpleName();
+
+    private LiveData<List<PopularMovie>> mPopularMovies;
     @Inject BonMovieRepository mRepository;
 
 
@@ -25,12 +28,18 @@ public class PopularMovieViewModel extends ViewModel {
         if(mPopularMovies != null){
             return;
         }
-        mPopularMovies = new MutableLiveData<>();
+        mPopularMovies = mRepository.getMovies();
+        Log.i(TAG, "init() :" + mPopularMovies.toString());
+        mRepository.refreshMoviesAtPage(1);
     }
 
-    public MutableLiveData<List<PopularMovie>> getPopularMovies(){
-        mRepository.getMoviesAtPage(1);
-        return getPopularMovies();
+    public LiveData<List<PopularMovie>> getPopularMovies(){
+        return mPopularMovies;
     }
+
+    public void loadMoviesAtPage(int page){
+
+    }
+
 
 }

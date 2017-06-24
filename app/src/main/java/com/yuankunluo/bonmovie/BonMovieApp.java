@@ -30,7 +30,7 @@ public class BonMovieApp extends Application {
         mAppComponent.inject(this);
     }
 
-    public static AppComponent getmAppComponent() {
+    public static AppComponent getAppComponent() {
         return mAppComponent;
     }
 }

@@ -19,8 +19,8 @@ import java.util.List;
 @TypeConverters(DateConverter.class)
 public interface PopularMovieDao {
 
-    @Query("SELECT * FROM PopularMovie WHERE page = :page")
-    List<PopularMovie> getPopularMoviesAtPage(int page);
+    @Query("SELECT * FROM PopularMovie")
+    LiveData<List<PopularMovie>> getAllMovies();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertPopularMovies(PopularMovie... movies);
@@ -28,4 +28,7 @@ public interface PopularMovieDao {
 
     @Query("DELETE FROM PopularMovie WHERE id > 0")
     void deleteAllPopularMovies();
+
+    @Query("SELECT EXISTS(SELECT 1 FROM PopularMovie WHERE page = :page)")
+    boolean hasMoviesAtPage(int page);
 }

@@ -1,5 +1,6 @@
 package com.yuankunluo.bonmovie.dagger2.component;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
@@ -12,6 +13,7 @@ import com.yuankunluo.bonmovie.dagger2.module.SharedPreferencesModule;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 import com.yuankunluo.bonmovie.data.repository.BonMovieRepository;
+import com.yuankunluo.bonmovie.services.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.VolleyWebService;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
 
@@ -32,5 +34,7 @@ public interface AppComponent {
     BonMovieDatabase getDatabase();
     SharedPreferences getSharedPreference();
     VolleyWebService getWebService();
+    TheMovieApiUriBuilder getApiUriBuilder();
     Gson getGson();
+
 }

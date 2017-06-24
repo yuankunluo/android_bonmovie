@@ -43,7 +43,7 @@ public class VolleyWebService {
     }
 
     public <T> void addToRequestQueue(Request<T> req){
-        getRequestQueue();
+        getRequestQueue().add(req);
     }
 
     public RequestQueue getRequestQueue(){

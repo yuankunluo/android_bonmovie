@@ -2,6 +2,7 @@ package com.yuankunluo.bonmovie.dagger2.module;
 
 import android.content.Context;
 
+import com.yuankunluo.bonmovie.services.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.VolleyWebService;
 
 import java.util.concurrent.ExecutorService;
@@ -25,5 +26,12 @@ public class ServiceModule {
     VolleyWebService provideVolleyWebService(@Named("appcontext")Context context){
         return new VolleyWebService(context);
     }
+
+    @Provides
+    @Singleton
+    TheMovieApiUriBuilder provideTheMovieApiUriBuilder(@Named("appcontext") Context context){
+        return new TheMovieApiUriBuilder(context);
+    }
+
 
 }

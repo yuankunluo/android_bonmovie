@@ -24,7 +24,7 @@ public class PopularMovieFragment extends LifecycleFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
-        BonMovieApp.getmAppComponent().inject(mViewModel);
+        BonMovieApp.getAppComponent().inject(mViewModel);
         mViewModel.init();
     }
 
