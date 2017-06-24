@@ -2,11 +2,10 @@ package com.yuankunluo.bonmovie.dagger2.module;
 
 import android.content.Context;
 
-import com.yuankunluo.bonmovie.services.TheMovieApiUriBuilder;
-import com.yuankunluo.bonmovie.services.VolleyWebService;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
+import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -31,6 +30,12 @@ public class ServiceModule {
     @Singleton
     TheMovieApiUriBuilder provideTheMovieApiUriBuilder(@Named("appcontext") Context context){
         return new TheMovieApiUriBuilder(context);
+    }
+
+    @Provides
+    @Singleton
+    FirebaseJobDispatcher provideFireBaseJobDispatcher(@Named("appcontext") Context context){
+        return new FirebaseJobDispatcher(new GooglePlayDriver(context));
     }
 
 

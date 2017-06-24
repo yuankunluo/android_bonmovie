@@ -46,4 +46,7 @@ dependencies {
     // android room
     compile "android.arch.persistence.room:runtime:1.0.0-alpha3"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha3"
+    // firebase jobdispatcher
+    compile 'com.firebase:firebase-jobdispatcher:0.6.0'
+
 }

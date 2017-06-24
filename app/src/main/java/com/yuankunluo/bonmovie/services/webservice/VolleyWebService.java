@@ -1,4 +1,4 @@
-package com.yuankunluo.bonmovie.services;
+package com.yuankunluo.bonmovie.services.webservice;
 
 import android.app.Application;
 import android.content.ComponentName;

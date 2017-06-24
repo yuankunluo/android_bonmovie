@@ -1,9 +1,10 @@
 package com.yuankunluo.bonmovie.dagger2.module;
 
+import com.google.gson.Gson;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
-import com.yuankunluo.bonmovie.data.repository.BonMovieRepository;
-import com.yuankunluo.bonmovie.services.TheMovieApiUriBuilder;
-import com.yuankunluo.bonmovie.services.VolleyWebService;
+import com.yuankunluo.bonmovie.data.repository.PopularMovieRepository;
+import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
+import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,9 +30,10 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    BonMovieRepository provideMovieRepository(VolleyWebService webService, PopularMovieDao movieDao,
-                                              ExecutorService executorService, TheMovieApiUriBuilder movieApiUriBuilder){
-        return new BonMovieRepository(webService, movieDao, executorService, movieApiUriBuilder);
+    PopularMovieRepository provideMovieRepository(VolleyWebService webService, PopularMovieDao movieDao,
+                                                  ExecutorService executorService, TheMovieApiUriBuilder movieApiUriBuilder,
+                                                  Gson gson){
+        return new PopularMovieRepository(webService, movieDao, executorService, movieApiUriBuilder, gson);
     }
 
 }

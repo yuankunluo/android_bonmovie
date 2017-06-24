@@ -1,8 +1,8 @@
 package com.yuankunluo.bonmovie.dagger2.component;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.google.gson.Gson;
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.dagger2.module.AppModule;
@@ -11,10 +11,9 @@ import com.yuankunluo.bonmovie.dagger2.module.RepositoryModule;
 import com.yuankunluo.bonmovie.dagger2.module.ServiceModule;
 import com.yuankunluo.bonmovie.dagger2.module.SharedPreferencesModule;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
-import com.yuankunluo.bonmovie.data.model.PopularMovie;
-import com.yuankunluo.bonmovie.data.repository.BonMovieRepository;
-import com.yuankunluo.bonmovie.services.TheMovieApiUriBuilder;
-import com.yuankunluo.bonmovie.services.VolleyWebService;
+import com.yuankunluo.bonmovie.data.repository.PopularMovieRepository;
+import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
+import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
 
 import javax.inject.Singleton;
@@ -30,11 +29,12 @@ import dagger.Component;
 public interface AppComponent {
     void inject(BonMovieApp app);
     void inject(PopularMovieViewModel viewModel);
-    BonMovieRepository getMovieRepository();
+    PopularMovieRepository getMovieRepository();
     BonMovieDatabase getDatabase();
     SharedPreferences getSharedPreference();
     VolleyWebService getWebService();
     TheMovieApiUriBuilder getApiUriBuilder();
+    FirebaseJobDispatcher getFirebaseJobDispatcher();
     Gson getGson();
 
 }
