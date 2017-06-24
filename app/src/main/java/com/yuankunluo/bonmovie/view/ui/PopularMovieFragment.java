@@ -24,7 +24,8 @@ import java.util.List;
 
 public class PopularMovieFragment extends LifecycleFragment {
     final String TAG = PopularMovieFragment.class.getSimpleName();
-    PopularMovieViewModel mViewModel;
+    private PopularMovieViewModel mViewModel;
+    private int mCurrentPage;
 
 
     @Override
@@ -33,26 +34,26 @@ public class PopularMovieFragment extends LifecycleFragment {
         mViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
         BonMovieApp.getAppComponent().inject(mViewModel);
         mViewModel.init();
+        mCurrentPage = 0;
         mViewModel.getPopularMovies().observe(this, new Observer<List<PopularMovie>>() {
             @Override
             public void onChanged(@Nullable List<PopularMovie> popularMovies) {
                 Log.i(TAG, "onActivityCreated: data changed");
-                Log.i(TAG, "movies: " + popularMovies.size());
+                Log.i(TAG, "movies size : " + popularMovies.size());
+                if(popularMovies.size()>0) {
+                    mCurrentPage = popularMovies.get(popularMovies.size() - 1).getPage();
+                }
+                Log.i(TAG, "current page: " + mCurrentPage);
             }
         });
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root =  inflater.inflate(R.layout.popular_movie_fragment, container, false);
-        Button button = (Button) root.findViewById(R.id.next_page);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mViewModel.loadNextPage();
-            }
-        });
+
         return root;
     }
 

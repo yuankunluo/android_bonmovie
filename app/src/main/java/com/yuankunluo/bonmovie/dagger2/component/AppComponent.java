@@ -12,6 +12,7 @@ import com.yuankunluo.bonmovie.dagger2.module.ServiceModule;
 import com.yuankunluo.bonmovie.dagger2.module.SharedPreferencesModule;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 import com.yuankunluo.bonmovie.data.repository.PopularMovieRepository;
+import com.yuankunluo.bonmovie.services.jobs.FetchPopularMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
@@ -29,6 +30,7 @@ import dagger.Component;
 public interface AppComponent {
     void inject(BonMovieApp app);
     void inject(PopularMovieViewModel viewModel);
+    void inject(FetchPopularMoviesFromApiJobService jobService);
     PopularMovieRepository getMovieRepository();
     BonMovieDatabase getDatabase();
     SharedPreferences getSharedPreference();

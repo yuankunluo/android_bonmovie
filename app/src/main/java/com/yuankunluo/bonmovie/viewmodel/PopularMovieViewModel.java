@@ -18,6 +18,7 @@ import javax.inject.Inject;
 public class PopularMovieViewModel extends ViewModel {
 
     private final String TAG = PopularMovieViewModel.class.getSimpleName();
+    private int mCurrentMoviesCount;
     private int mCurrentPage;
 
     private LiveData<List<PopularMovie>> mPopularMovies;
@@ -31,8 +32,6 @@ public class PopularMovieViewModel extends ViewModel {
         }
         mPopularMovies = mRepository.getPopularMovies();
         Log.i(TAG, "init() :" + mPopularMovies.toString());
-        mRepository.refreshMoviesAtPage(1,1);
-        mCurrentPage = 1;
     }
 
     public LiveData<List<PopularMovie>> getPopularMovies(){
@@ -40,12 +39,8 @@ public class PopularMovieViewModel extends ViewModel {
     }
 
     public void loadMoviesAtPage(int page){
-        mRepository.refreshMoviesAtPage(mRepository.TYPE_POPULAR_MOVIE,page);
+        mRepository.refreshMoviesAtPage(page);
     }
 
-    public void loadNextPage(){
-        mCurrentPage++;
-        mRepository.refreshMoviesAtPage(mRepository.TYPE_POPULAR_MOVIE, mCurrentPage);
-    }
 
 }

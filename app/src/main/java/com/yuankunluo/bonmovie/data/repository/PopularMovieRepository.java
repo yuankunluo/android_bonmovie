@@ -2,20 +2,19 @@ package com.yuankunluo.bonmovie.data.repository;
 
 import android.arch.lifecycle.LiveData;
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.Gson;
+
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.Trigger;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
-import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
-import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.yuankunluo.bonmovie.services.jobs.FetchPopularMoviesFromApiJobService;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -30,29 +29,22 @@ import javax.inject.Singleton;
 @Singleton
 public class PopularMovieRepository {
 
-    public final int TYPE_POPULAR_MOVIE = 1;
-    public final int TYPE_TOP_RATED_MOVIE = 2;
 
     final static String TAG = PopularMovieRepository.class.getSimpleName();
 
-    private VolleyWebService mVolleyWebService;
     private PopularMovieDao mPopularMovieDao;
     private Executor mExecutor;
-    private TheMovieApiUriBuilder mApiUriBuilder;
-    private Gson mGson;
+    private FirebaseJobDispatcher mFireBaseDispatcher;
 
 
     @Inject
-    public PopularMovieRepository(VolleyWebService webService,
-                                  PopularMovieDao movieDao,
+    public PopularMovieRepository(PopularMovieDao movieDao,
                                   ExecutorService executorService,
-                                  TheMovieApiUriBuilder movieApiUriBuilder,
-                                  Gson gson){
-        mVolleyWebService = webService;
+                                  FirebaseJobDispatcher dispatcher
+                                  ){
         mPopularMovieDao = movieDao;
         mExecutor = executorService;
-        mApiUriBuilder = movieApiUriBuilder;
-        mGson = gson;
+        mFireBaseDispatcher = dispatcher;
     }
 
 
@@ -61,64 +53,40 @@ public class PopularMovieRepository {
     }
 
     /**
+     * Check if this page already exists in local db and check if should
+     * refetch. If fetch needs, start a firebase job to fetch. Use firebase
+     * it good for its constraint such as ANY_NETWORK. It saves us from manually
+     * check internet connection anywhere.
+     * @param page the page number to load
      *
-     * @param type 1 for popular, 2 for top rated
-     * @param page
      */
-    public void refreshMoviesAtPage(int type, final int page){
+    public void refreshMoviesAtPage(final int page){
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
                 boolean movieExists = mPopularMovieDao.hasMoviesAtPage(page);
                 Log.i(TAG, Boolean.toString(movieExists));
                 if(!movieExists){
-                    String url = mApiUriBuilder.getPopularMovieUrlForPage(page).toString();
-                    Log.i(TAG, "URL + :" +  url);
-                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url
-                            ,
-                            null,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-//                                    Log.i(TAG, response.toString());
-                                    final PopularMovie[] newMovies = parsePopularMovies(response);
-                                    mExecutor.execute(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            mPopularMovieDao.insertPopularMovies(newMovies);
-                                        }
-                                    });
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.e(TAG, error.toString());
-                                }
-                            }
-                    );
-                    mVolleyWebService.addToRequestQueue(jsonObjectRequest);
+                    Bundle pageExtraBundle = new Bundle();
+                    pageExtraBundle.putInt("page", page);
+                    Log.i(TAG, "page " + page +" not exists");
+                    Job fetchJob = mFireBaseDispatcher.newJobBuilder()
+                            .setService(FetchPopularMoviesFromApiJobService.class)
+                            .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
+                            // fetch immediacy
+                            .setTrigger(Trigger.executionWindow(0,0))
+                            .setRecurring(false)
+                            .setConstraints(Constraint.ON_ANY_NETWORK)
+                            .setExtras(pageExtraBundle)
+                            .setTag("page-"+String.valueOf(page))
+                            .build();
+                    mFireBaseDispatcher.schedule(fetchJob);
                 }
             }
         });
     }
 
 
-    PopularMovie[] parsePopularMovies(JSONObject response){
-        try {
-            int page = response.getInt("page");
-            JSONArray results = response.getJSONArray("results");
-            PopularMovie[] movies = mGson.fromJson(results.toString(), PopularMovie[].class);
-            for(PopularMovie m : movies){
-                // set page
-                m.setPage(page);
-            }
-            return movies;
-        } catch (JSONException e){
-            e.printStackTrace();
-            Log.e(TAG, "parseJsonResponse error");
-        }
-        return null;
-    }
+
 
 }
