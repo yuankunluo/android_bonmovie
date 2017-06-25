@@ -15,6 +15,7 @@ import com.yuankunluo.bonmovie.data.repository.PopularMovieRepository;
 import com.yuankunluo.bonmovie.services.jobs.FetchPopularMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
+import com.yuankunluo.bonmovie.view.viewholder.MovieGridViewHolder;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
 
 import javax.inject.Singleton;
@@ -31,6 +32,7 @@ public interface AppComponent {
     void inject(BonMovieApp app);
     void inject(PopularMovieViewModel viewModel);
     void inject(FetchPopularMoviesFromApiJobService jobService);
+    void inject(MovieGridViewHolder holder);
     PopularMovieRepository getMovieRepository();
     BonMovieDatabase getDatabase();
     SharedPreferences getSharedPreference();

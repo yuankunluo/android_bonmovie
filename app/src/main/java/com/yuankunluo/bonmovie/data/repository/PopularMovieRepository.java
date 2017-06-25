@@ -79,6 +79,7 @@ public class PopularMovieRepository {
                             .setConstraints(Constraint.ON_ANY_NETWORK)
                             .setExtras(pageExtraBundle)
                             .setTag("page-"+String.valueOf(page))
+
                             .build();
                     mFireBaseDispatcher.schedule(fetchJob);
                 }

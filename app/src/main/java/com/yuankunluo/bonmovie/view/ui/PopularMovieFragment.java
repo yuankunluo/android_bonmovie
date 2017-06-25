@@ -1,22 +1,22 @@
 package com.yuankunluo.bonmovie.view.ui;
 
 import android.arch.lifecycle.LifecycleFragment;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
+import com.yuankunluo.bonmovie.view.adapter.MovieRecyclerViewAdapter;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
-
-import java.util.List;
 
 /**
  * Created by yuank on 2017-06-22.
@@ -25,35 +25,38 @@ import java.util.List;
 public class PopularMovieFragment extends LifecycleFragment {
     final String TAG = PopularMovieFragment.class.getSimpleName();
     private PopularMovieViewModel mViewModel;
-    private int mCurrentPage;
+    private RecyclerView mRecyclerView;
+    private MovieRecyclerViewAdapter<PopularMovie> movieRecyclerViewAdapter;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
+        mViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+        BonMovieApp.getAppComponent().inject(mViewModel);
+        mViewModel.init();
+        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>();
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
-        BonMovieApp.getAppComponent().inject(mViewModel);
-        mViewModel.init();
-        mCurrentPage = 0;
-        mViewModel.getPopularMovies().observe(this, new Observer<List<PopularMovie>>() {
-            @Override
-            public void onChanged(@Nullable List<PopularMovie> popularMovies) {
-                Log.i(TAG, "onActivityCreated: data changed");
-                Log.i(TAG, "movies size : " + popularMovies.size());
-                if(popularMovies.size()>0) {
-                    mCurrentPage = popularMovies.get(popularMovies.size() - 1).getPage();
-                }
-                Log.i(TAG, "current page: " + mCurrentPage);
-            }
-        });
-
+        Log.d(TAG, "onActivityCreated");
+        mViewModel.getPopularMovies().observe(this, movieRecyclerViewAdapter);
+        mViewModel.loadMoviesAtPage(1);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root =  inflater.inflate(R.layout.popular_movie_fragment, container, false);
-
+        Log.d(TAG, "onCreateView");
+        View root =  inflater.inflate(R.layout.movie_fragment, container, false);
+        mRecyclerView = root.findViewById(R.id.recyclerview_movies);
+        int columnNumber = getResources().getInteger(R.integer.grid_column);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView.setAdapter(movieRecyclerViewAdapter);
         return root;
     }
 

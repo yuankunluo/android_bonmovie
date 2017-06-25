@@ -9,4 +9,10 @@
     <string name="themoviedb_param_page">page</string>
     <string name="themoviedb_param_api_key">api_key</string>
     <string name="themoviedb_param_api_key_value">@string/ykl_api_key</string>
+    <string name="themoviedb_image_scheme">http</string>
+    <string name="themoviedb_image_host">image.tmdb.org</string>
+    <string name="themoviedb_image_path_t">t</string>
+    <string name="themoviedb_image_path_p">p</string>
+    <string name="themoviedb_image_path_w185">w185</string>
+    <string name="themoviedb_image_path_w500">w500</string>
 </resources>

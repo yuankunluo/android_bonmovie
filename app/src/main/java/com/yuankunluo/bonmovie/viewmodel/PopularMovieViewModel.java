@@ -18,12 +18,10 @@ import javax.inject.Inject;
 public class PopularMovieViewModel extends ViewModel {
 
     private final String TAG = PopularMovieViewModel.class.getSimpleName();
-    private int mCurrentMoviesCount;
-    private int mCurrentPage;
+
 
     private LiveData<List<PopularMovie>> mPopularMovies;
-    @Inject
-    PopularMovieRepository mRepository;
+    @Inject PopularMovieRepository mRepository;
 
 
     public void init(){

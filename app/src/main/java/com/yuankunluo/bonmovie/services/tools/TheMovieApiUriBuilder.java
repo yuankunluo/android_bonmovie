@@ -34,7 +34,7 @@ public class TheMovieApiUriBuilder {
                 .build();
     }
 
-    public Uri getPopularMovieUrlForPage(int page){
+    public Uri getPopularMovieAtPageUrl(int page){
         return getBaseUri().buildUpon()
                 .appendPath(mContext.getString(R.string.themoviedb_path_movie))
                 .appendPath(mContext.getString(R.string.themoviedb_path_popular))
@@ -42,6 +42,25 @@ public class TheMovieApiUriBuilder {
                         mContext.getString(R.string.themoviedb_param_page),
                         Integer.toString(page)
                 ).build();
+    }
+
+    /**
+     * Get proper image url for tablet or phone
+     * @return
+     */
+    public Uri getPosterBaseUri(){
+        String width =mContext.getString(R.string.themoviedb_image_path_w185);
+        if(mContext.getResources().getBoolean(R.bool.isTablet)) {
+            width = mContext.getString(R.string.themoviedb_image_path_w500);
+        }
+
+        return new Uri.Builder()
+                .scheme(mContext.getString(R.string.themoviedb_image_scheme))
+                .authority(mContext.getString(R.string.themoviedb_image_host))
+                .appendPath(mContext.getString(R.string.themoviedb_image_path_t))
+                .appendPath(mContext.getString(R.string.themoviedb_image_path_p))
+                .appendPath(width)
+                .build();
     }
 
 }

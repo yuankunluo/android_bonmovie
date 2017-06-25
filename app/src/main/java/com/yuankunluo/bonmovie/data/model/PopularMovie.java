@@ -26,9 +26,9 @@ public class PopularMovie {
     private int page;
     @TypeConverters(DateConverter.class)
     private Date last_updated_date;
+    private String poster_url;
 
-    @Ignore
-    Bitmap poster;
+
 
     public int getId() {
         return id;
@@ -94,13 +94,6 @@ public class PopularMovie {
         this.page = page;
     }
 
-    public Bitmap getPoster() {
-        return poster;
-    }
-
-    public void setPoster(Bitmap poster) {
-        this.poster = poster;
-    }
 
     public Date getLast_updated_date() {
         return last_updated_date;
@@ -108,6 +101,14 @@ public class PopularMovie {
 
     public void setLast_updated_date(Date last_updated_date) {
         this.last_updated_date = last_updated_date;
+    }
+
+    public String getPoster_url() {
+        return poster_url;
+    }
+
+    public void setPoster_url(String poster_url) {
+        this.poster_url = poster_url;
     }
 
     @Override
@@ -122,7 +123,7 @@ public class PopularMovie {
                 ", popularity=" + popularity +
                 ", page=" + page +
                 ", last_updated_date=" + last_updated_date +
-                ", poster=" + poster +
+                ", poster_url='" + poster_url + '\'' +
                 '}';
     }
 }

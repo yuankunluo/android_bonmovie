@@ -2,6 +2,7 @@ package com.yuankunluo.bonmovie.dagger2.module;
 
 import android.content.Context;
 
+import com.android.volley.toolbox.ImageLoader;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
 import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
@@ -24,6 +25,11 @@ public class ServiceModule {
     @Singleton
     VolleyWebService provideVolleyWebService(@Named("appcontext")Context context){
         return new VolleyWebService(context);
+    }
+
+    @Provides
+    ImageLoader provideVolleyImageLoader(VolleyWebService volleyWebService){
+        return volleyWebService.getmImageLoader();
     }
 
     @Provides
