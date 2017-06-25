@@ -31,7 +31,7 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
     @Override
     public void onChanged(@Nullable List<T> ts) {
         mMovies = ts;
-        Log.i(TAG, Integer.toString(ts.size()));
+        Log.i(TAG, "onChanged: " +Integer.toString(ts.size()));
         notifyDataSetChanged();
     }
 
@@ -43,7 +43,6 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
         MovieGridViewHolder viewHolder = new MovieGridViewHolder(itemView);
         // inject ImageViewHolder
         BonMovieApp.getAppComponent().inject(viewHolder);
-        Log.i(TAG, "onCreateViewHolder");
         return viewHolder;
     }
 

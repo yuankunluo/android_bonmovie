@@ -37,6 +37,7 @@ public class PopularMovieViewModel extends ViewModel {
     }
 
     public void loadMoviesAtPage(int page){
+        Log.d(TAG, "loadMoviesAtPage " + Integer.toString(page));
         mRepository.refreshMoviesAtPage(page);
     }
 

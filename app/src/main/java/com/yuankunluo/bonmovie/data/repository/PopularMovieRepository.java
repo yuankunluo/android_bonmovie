@@ -29,8 +29,7 @@ import javax.inject.Singleton;
 @Singleton
 public class PopularMovieRepository {
 
-
-    final static String TAG = PopularMovieRepository.class.getSimpleName();
+    final String TAG = PopularMovieRepository.class.getSimpleName();
 
     private PopularMovieDao mPopularMovieDao;
     private Executor mExecutor;
@@ -45,6 +44,7 @@ public class PopularMovieRepository {
         mPopularMovieDao = movieDao;
         mExecutor = executorService;
         mFireBaseDispatcher = dispatcher;
+        Log.i(TAG, "new PopularMovieRepository: " + this.toString());
     }
 
 
@@ -76,10 +76,10 @@ public class PopularMovieRepository {
                             // fetch immediacy
                             .setTrigger(Trigger.executionWindow(0,0))
                             .setRecurring(false)
+                            .setReplaceCurrent(true)
                             .setConstraints(Constraint.ON_ANY_NETWORK)
                             .setExtras(pageExtraBundle)
                             .setTag("page-"+String.valueOf(page))
-
                             .build();
                     mFireBaseDispatcher.schedule(fetchJob);
                 }

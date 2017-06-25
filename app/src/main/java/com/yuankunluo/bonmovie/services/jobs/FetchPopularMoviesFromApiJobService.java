@@ -75,7 +75,7 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters job) {
-        // should not restarted
+        // should restarted?
         return false;
     }
 

@@ -1,6 +1,7 @@
 package com.yuankunluo.bonmovie;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.yuankunluo.bonmovie.dagger2.component.AppComponent;
 import com.yuankunluo.bonmovie.dagger2.component.DaggerAppComponent;
@@ -16,10 +17,12 @@ import com.yuankunluo.bonmovie.dagger2.module.SharedPreferencesModule;
 
 public class BonMovieApp extends Application {
     private static AppComponent mAppComponent;
+    private final String TAG = BonMovieApp.class.getSimpleName();
 
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG,"onCreate");
         mAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .dataBaseModule(new DataBaseModule())

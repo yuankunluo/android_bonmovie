@@ -2,7 +2,7 @@ package com.yuankunluo.bonmovie.view.ui;
 
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.res.Configuration;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -33,19 +33,21 @@ public class PopularMovieFragment extends LifecycleFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        mViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
-        BonMovieApp.getAppComponent().inject(mViewModel);
-        mViewModel.init();
-        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>();
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "onActivityCreated");
+        mViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+        BonMovieApp.getAppComponent().inject(mViewModel);
+        mViewModel.init();
         mViewModel.getPopularMovies().observe(this, movieRecyclerViewAdapter);
         mViewModel.loadMoviesAtPage(1);
+
     }
+
 
     @Nullable
     @Override
@@ -56,6 +58,7 @@ public class PopularMovieFragment extends LifecycleFragment {
         int columnNumber = getResources().getInteger(R.integer.grid_column);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(gridLayoutManager);
+        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>();
         mRecyclerView.setAdapter(movieRecyclerViewAdapter);
         return root;
     }
