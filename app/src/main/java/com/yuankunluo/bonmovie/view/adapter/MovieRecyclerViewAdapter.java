@@ -1,6 +1,5 @@
 package com.yuankunluo.bonmovie.view.adapter;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +30,7 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
     @Override
     public void onChanged(@Nullable List<T> ts) {
         mMovies = ts;
-        Log.i(TAG, "onChanged: " +Integer.toString(ts.size()));
+        Log.d(TAG, "onChanged: " +Integer.toString(ts.size()));
         notifyDataSetChanged();
     }
 
@@ -52,6 +51,7 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
         T movie = mMovies.get(position);
         if(movie instanceof PopularMovie){
             String posterUrl = ((PopularMovie)movie).getPoster_url();
+            holder.setMovieId(((PopularMovie)movie).getId());
             if(!TextUtils.isEmpty(posterUrl)){
                 holder.setImageUrl(posterUrl);
             }

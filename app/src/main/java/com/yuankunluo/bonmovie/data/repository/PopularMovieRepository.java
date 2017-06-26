@@ -3,7 +3,6 @@ package com.yuankunluo.bonmovie.data.repository;
 import android.arch.lifecycle.LiveData;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.util.Log;
 
 
@@ -52,6 +51,16 @@ public class PopularMovieRepository {
         return mPopularMovieDao.getAllMovies();
     }
 
+    public void refreshAll(){
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mPopularMovieDao.deleteAllPopularMovies();
+            }
+        });
+        refreshMoviesAtPage(1);
+    }
+
     /**
      * Check if this page already exists in local db and check if should
      * refetch. If fetch needs, start a firebase job to fetch. Use firebase
@@ -65,7 +74,7 @@ public class PopularMovieRepository {
             @Override
             public void run() {
                 boolean movieExists = mPopularMovieDao.hasMoviesAtPage(page);
-                Log.i(TAG, Boolean.toString(movieExists));
+                Log.d(TAG, Boolean.toString(movieExists));
                 if(!movieExists){
                     Bundle pageExtraBundle = new Bundle();
                     pageExtraBundle.putInt("page", page);

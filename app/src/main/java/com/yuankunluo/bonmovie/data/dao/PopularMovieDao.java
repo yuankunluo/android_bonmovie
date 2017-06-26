@@ -10,6 +10,7 @@ import android.arch.persistence.room.TypeConverters;
 import com.yuankunluo.bonmovie.data.model.DateConverter;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 @TypeConverters(DateConverter.class)
 public interface PopularMovieDao {
 
-    @Query("SELECT * FROM PopularMovie")
+    @Query("SELECT * FROM PopularMovie ORDER BY page ASC, id_in_page ASC")
     LiveData<List<PopularMovie>> getAllMovies();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -31,4 +32,5 @@ public interface PopularMovieDao {
 
     @Query("SELECT EXISTS(SELECT 1 FROM PopularMovie WHERE page = :page)")
     boolean hasMoviesAtPage(int page);
+
 }

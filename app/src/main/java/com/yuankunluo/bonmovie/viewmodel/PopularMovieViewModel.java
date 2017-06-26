@@ -41,5 +41,10 @@ public class PopularMovieViewModel extends ViewModel {
         mRepository.refreshMoviesAtPage(page);
     }
 
+    public void forceRefresh(){
+        Log.d(TAG, "forceRefresh");
+        mRepository.refreshAll();
+    }
+
 
 }

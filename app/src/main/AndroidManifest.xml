@@ -27,6 +27,13 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
             </intent-filter>
         </service>
+
+        <receiver android:name=".services.receiver.DBRefreshBroadcastReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="com.yuankunluo.bonmovie.action.DB_INSERTED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>

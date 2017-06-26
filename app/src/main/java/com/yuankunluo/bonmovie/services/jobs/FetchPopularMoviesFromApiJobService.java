@@ -1,5 +1,6 @@
 package com.yuankunluo.bonmovie.services.jobs;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -13,6 +14,7 @@ import com.google.gson.Gson;
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
+import com.yuankunluo.bonmovie.services.BonMovieActions;
 import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
@@ -20,7 +22,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -40,7 +46,7 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
     @Override
     public boolean onStartJob(JobParameters job) {
         BonMovieApp.getAppComponent().inject(this);
-        int page = job.getExtras().getInt("page");
+        final int page = job.getExtras().getInt("page");
         Log.i(TAG, "onStartJob page: " + Integer.toString(page));
         String url = mUriBuilder.getPopularMovieAtPageUrl(page).toString();
         Log.i(TAG, "onStartJob url: " +  url);
@@ -55,6 +61,11 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
                             @Override
                             public void run() {
                                 mDao.insertPopularMovies(newMovies);
+                                Intent intent = new Intent();
+                                intent.setAction(BonMovieActions.ACTION_DB_INSERTED);
+                                intent.putExtra("page", page);
+                                intent.putExtra("type",PopularMovie.class.getSimpleName());
+                                sendBroadcast(intent);
                             }
                         });
                     }
@@ -84,8 +95,11 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
             int page = response.getInt("page");
             JSONArray results = response.getJSONArray("results");
             PopularMovie[] movies = mGson.fromJson(results.toString(), PopularMovie[].class);
+            int id_in_page = 0;
             for(PopularMovie m : movies){
+                id_in_page++;
                 m.setPage(page);
+                m.setId_in_page(id_in_page);
                 m.setPoster_url(mUriBuilder.getPosterBaseUri().toString() + m.getPoster_path());
             }
 
