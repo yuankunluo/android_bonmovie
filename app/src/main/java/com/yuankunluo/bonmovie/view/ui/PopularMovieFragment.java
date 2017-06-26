@@ -81,6 +81,7 @@ public class PopularMovieFragment extends LifecycleFragment implements DBOnRefre
             @Override
             public void onLoadMore(int page) {
                 mViewModel.loadMoviesAtPage(page);
+                Log.d(TAG, "onLoadMore " + page);
             }
         };
         mScrollListener.resetState();

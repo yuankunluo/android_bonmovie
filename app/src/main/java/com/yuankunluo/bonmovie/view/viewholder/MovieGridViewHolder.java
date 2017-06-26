@@ -41,6 +41,7 @@ public class MovieGridViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setImageUrl(String url){
+        mImageLoader.get(url, ImageLoader.getImageListener(mImageView, R.drawable.ic_image_black_48px, R.drawable.ic_broken_image_black_48px));
         mImageView.setImageUrl(url, mImageLoader);
     }
 
