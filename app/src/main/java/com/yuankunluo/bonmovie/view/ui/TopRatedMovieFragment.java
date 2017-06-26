@@ -16,23 +16,23 @@ import android.view.ViewGroup;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
-import com.yuankunluo.bonmovie.data.model.PopularMovie;
+import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.receiver.DBRefreshBroadcastReceiver;
 import com.yuankunluo.bonmovie.view.adapter.MovieRecyclerViewAdapter;
 import com.yuankunluo.bonmovie.view.listener.DBOnRefreshListener;
 import com.yuankunluo.bonmovie.view.listener.EndlessRecyclerViewScrollListener;
-import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
+import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
 
 /**
  * Created by yuank on 2017-06-22.
  */
 
-public class PopularMovieFragment extends LifecycleFragment implements DBOnRefreshListener {
-    final String TAG = PopularMovieFragment.class.getSimpleName();
-    private PopularMovieViewModel mViewModel;
+public class TopRatedMovieFragment extends LifecycleFragment implements DBOnRefreshListener {
+    final String TAG = TopRatedMovieFragment.class.getSimpleName();
+    private TopRatedMovieViewModel mViewModel;
     private RecyclerView mRecyclerView;
-    private MovieRecyclerViewAdapter<PopularMovie> movieRecyclerViewAdapter;
+    private MovieRecyclerViewAdapter<TopRatedMovie> movieRecyclerViewAdapter;
     private SwipeRefreshLayout mSwipRefreshContainer;
     private BroadcastReceiver mBroadcastReceiver;
     private EndlessRecyclerViewScrollListener mScrollListener;
@@ -55,10 +55,10 @@ public class PopularMovieFragment extends LifecycleFragment implements DBOnRefre
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Log.d(TAG, "onActivityCreated");
-        mViewModel = ViewModelProviders.of(this).get(PopularMovieViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(TopRatedMovieViewModel.class);
         BonMovieApp.getAppComponent().inject(mViewModel);
         mViewModel.init();
-        mViewModel.getPopularMovies().observe(this, movieRecyclerViewAdapter);
+        mViewModel.getMovies().observe(this, movieRecyclerViewAdapter);
         mViewModel.loadMoviesAtPage(1);
 
     }

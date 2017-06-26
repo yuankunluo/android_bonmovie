@@ -30,7 +30,9 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
     @Override
     public void onChanged(@Nullable List<T> ts) {
         mMovies = ts;
-        Log.d(TAG, "onChanged: " +Integer.toString(ts.size()));
+        if(ts != null){
+            Log.d(TAG, "onChanged: " +Integer.toString(ts.size()));
+        }
         notifyDataSetChanged();
     }
 

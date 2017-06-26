@@ -1,11 +1,9 @@
 package com.yuankunluo.bonmovie.dagger2.module;
 
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.google.gson.Gson;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
-import com.yuankunluo.bonmovie.data.repository.PopularMovieRepository;
-import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
-import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
+import com.yuankunluo.bonmovie.data.dao.TopRatedMovieDao;
+import com.yuankunluo.bonmovie.data.repository.BonMovieRepository;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -31,9 +29,10 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    PopularMovieRepository provideMovieRepository(PopularMovieDao movieDao,
-                                                  ExecutorService executorService, FirebaseJobDispatcher dispatcher){
-        return new PopularMovieRepository( movieDao, executorService, dispatcher);
+    BonMovieRepository provideMovieRepository(PopularMovieDao popularMovieDao,
+                                              TopRatedMovieDao topRatedMovieDao,
+                                              ExecutorService executorService, FirebaseJobDispatcher dispatcher){
+        return new BonMovieRepository( popularMovieDao, topRatedMovieDao, executorService, dispatcher);
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.Date;
  */
 
 @Entity
-public class PopularMovie {
+public class TopRatedMovie {
 
     @PrimaryKey
     private int id;
@@ -27,13 +27,20 @@ public class PopularMovie {
     private Date last_updated_date;
     private String poster_url;
 
-
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId_in_page() {
+        return id_in_page;
+    }
+
+    public void setId_in_page(int id_in_page) {
+        this.id_in_page = id_in_page;
     }
 
     public String getPoster_path() {
@@ -67,7 +74,6 @@ public class PopularMovie {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     public double getVote_average() {
         return vote_average;
@@ -109,19 +115,9 @@ public class PopularMovie {
         this.poster_url = poster_url;
     }
 
-
-    public int getId_in_page() {
-        return id_in_page;
-    }
-
-    public void setId_in_page(int id_in_page) {
-        this.id_in_page = id_in_page;
-    }
-
-
     @Override
     public String toString() {
-        return "TypePopularMovie{" +
+        return "TopRatedMovie{" +
                 "id=" + id +
                 ", id_in_page=" + id_in_page +
                 ", poster_path='" + poster_path + '\'' +

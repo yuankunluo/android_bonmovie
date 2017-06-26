@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
-import com.yuankunluo.bonmovie.services.BonMovieActions;
+import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.view.listener.DBOnRefreshListener;
 
 /**
@@ -30,7 +30,7 @@ public class DBRefreshBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
        switch (intent.getAction()){
-           case BonMovieActions.ACTION_DB_INSERTED:
+           case BonMovieAction.ACTION_DB_INSERTED:
                int page = intent.getIntExtra("page", 0);
                String type = intent.getStringExtra("type");
                Log.d(TAG, "onReceive " + type +" page " + page);

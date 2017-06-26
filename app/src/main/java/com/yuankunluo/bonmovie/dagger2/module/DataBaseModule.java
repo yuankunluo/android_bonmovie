@@ -6,6 +6,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
+import com.yuankunluo.bonmovie.data.dao.TopRatedMovieDao;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 
 import javax.inject.Named;
@@ -30,6 +31,11 @@ public class DataBaseModule {
     @Provides
     PopularMovieDao providePopularMovieDao(BonMovieDatabase db){
         return db.popularMovieDao();
+    }
+
+    @Provides
+    TopRatedMovieDao provideTopRatedMovieDao(BonMovieDatabase db){
+        return db.topRatedMovieDao();
     }
 
     @Provides

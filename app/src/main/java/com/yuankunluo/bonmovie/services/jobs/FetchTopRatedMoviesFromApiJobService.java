@@ -10,16 +10,16 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
 import com.google.gson.Gson;
-
 import com.yuankunluo.bonmovie.BonMovieApp;
-import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
-import com.yuankunluo.bonmovie.data.model.PopularMovie;
+import com.yuankunluo.bonmovie.data.dao.TopRatedMovieDao;
+import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
+import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonParser;
 import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
-import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
 import org.json.JSONObject;
+
 import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
@@ -28,13 +28,13 @@ import javax.inject.Inject;
  * Created by yuank on 2017-06-24.
  */
 
-public class FetchPopularMoviesFromApiJobService extends JobService {
-    private final String TAG = FetchPopularMoviesFromApiJobService.class.getSimpleName();
+public class FetchTopRatedMoviesFromApiJobService extends JobService {
+    private final String TAG = FetchTopRatedMoviesFromApiJobService.class.getSimpleName();
 
     @Inject VolleyWebService mWebService;
     @Inject Gson mGson;
     @Inject TheMovieApiUriBuilder mUriBuilder;
-    @Inject PopularMovieDao mDao;
+    @Inject TopRatedMovieDao mDao;
     @Inject ExecutorService mExecutor;
     @Inject TheMovieApiJsonParser mJsonParser;
 
@@ -43,14 +43,14 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
         BonMovieApp.getAppComponent().inject(this);
         final int page = job.getExtras().getInt("page");
         Log.d(TAG, "onStartJob page: " + Integer.toString(page));
-        String url = mUriBuilder.getPopularMovieAtPageUri(page).toString();
+        String url = mUriBuilder.getTopRatedMovieAtPageUri(page).toString();
         Log.d(TAG, "onStartJob url: " +  url);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        final PopularMovie[] newMovies = mJsonParser.parseResponseToMovieArray(response, PopularMovie[].class);
+                        final TopRatedMovie[] newMovies = mJsonParser.parseResponseToMovieArray(response, TopRatedMovie[].class);
                         // save result into local db in worker thread
                         mExecutor.execute(new Runnable() {
                             @Override
@@ -59,7 +59,7 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
                                 Intent intent = new Intent();
                                 intent.setAction(BonMovieAction.ACTION_DB_INSERTED);
                                 intent.putExtra("page", page);
-                                intent.putExtra("type",PopularMovie.class.getSimpleName());
+                                intent.putExtra("type",TopRatedMovie.class.getSimpleName());
                                 sendBroadcast(intent);
                             }
                         });
@@ -84,5 +84,6 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
         // should restarted?
         return false;
     }
+
 
 }

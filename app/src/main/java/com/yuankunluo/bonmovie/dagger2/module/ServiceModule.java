@@ -5,7 +5,7 @@ import android.content.Context;
 import com.android.volley.toolbox.ImageLoader;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.yuankunluo.bonmovie.services.tools.TheMovieApiUriBuilder;
+import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
 import javax.inject.Named;
@@ -31,12 +31,7 @@ public class ServiceModule {
     ImageLoader provideVolleyImageLoader(VolleyWebService volleyWebService){
         return volleyWebService.getmImageLoader();
     }
-
-    @Provides
-    @Singleton
-    TheMovieApiUriBuilder provideTheMovieApiUriBuilder(@Named("appcontext") Context context){
-        return new TheMovieApiUriBuilder(context);
-    }
+    
 
     @Provides
     @Singleton

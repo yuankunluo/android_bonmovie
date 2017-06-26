@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
-import com.yuankunluo.bonmovie.data.model.PopularMovie;
+import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.data.repository.BonMovieRepository;
 
 import java.util.List;
@@ -15,36 +15,34 @@ import javax.inject.Inject;
  * Created by yuank on 2017-06-22.
  */
 
-public class PopularMovieViewModel extends ViewModel {
+public class TopRatedMovieViewModel extends ViewModel {
 
-    private final String TAG = PopularMovieViewModel.class.getSimpleName();
-
-
-    private LiveData<List<PopularMovie>> mPopularMovies;
+    private final String TAG = TopRatedMovieViewModel.class.getSimpleName();
+    private LiveData<List<TopRatedMovie>> mMovies;
     @Inject
     BonMovieRepository mRepository;
 
 
     public void init(){
-        if(mPopularMovies != null){
+        if(mMovies != null){
             return;
         }
-        mPopularMovies = mRepository.getPopularMovies();
-        Log.d(TAG, "init() :" + mPopularMovies.toString());
+        mMovies = mRepository.getTopRatedMovies();
+        Log.d(TAG, "init() :" + mMovies.toString());
     }
 
-    public LiveData<List<PopularMovie>> getPopularMovies(){
-        return mPopularMovies;
+    public LiveData<List<TopRatedMovie>> getMovies(){
+        return mMovies;
     }
 
     public void loadMoviesAtPage(int page){
         Log.d(TAG, "loadMoviesAtPage " + Integer.toString(page));
-        mRepository.refreshPopularMovieAtPage(page);
+        mRepository.refreshTopRatedMovieAtPage(page);
     }
 
     public void forceRefresh(){
         Log.d(TAG, "forceRefresh");
-        mRepository.refreshAllPopularMovies();
+        mRepository.refreshAllTopRatedMovies();
     }
 
 

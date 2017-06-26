@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.view.ui.PopularMovieFragment;
+import com.yuankunluo.bonmovie.view.ui.TopRatedMovieFragment;
 
 /**
  * Created by yuank on 2017-06-22.
@@ -28,7 +29,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new PopularMovieFragment();
             case 1:
-                return new PopularMovieFragment();
+                return new TopRatedMovieFragment();
             default:
                 return null;
         }
@@ -40,7 +41,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return mContext.getString(R.string.tab_title_popular_movie);
             case 1:
-                return mContext.getString(R.string.tab_title_popular_movie);
+                return mContext.getString(R.string.tab_title_top_rated_movie);
             case 2:
                 return mContext.getString(R.string.tab_title_my_favorite);
             default:

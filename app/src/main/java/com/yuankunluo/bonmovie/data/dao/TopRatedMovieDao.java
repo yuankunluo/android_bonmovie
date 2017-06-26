@@ -8,9 +8,8 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.TypeConverters;
 
 import com.yuankunluo.bonmovie.data.model.DateConverter;
-import com.yuankunluo.bonmovie.data.model.PopularMovie;
+import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,19 +17,19 @@ import java.util.List;
  */
 @Dao
 @TypeConverters(DateConverter.class)
-public interface PopularMovieDao {
+public interface TopRatedMovieDao {
 
-    @Query("SELECT * FROM PopularMovie ORDER BY page ASC, id_in_page ASC")
-    LiveData<List<PopularMovie>> getAllMovies();
+    @Query("SELECT * FROM TopRatedMovie ORDER BY page ASC, id_in_page ASC")
+    LiveData<List<TopRatedMovie>> getAllMovies();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertMovies(PopularMovie... movies);
+    void insertMovies(TopRatedMovie... movies);
 
 
-    @Query("DELETE FROM PopularMovie WHERE id > 0")
+    @Query("DELETE FROM TopRatedMovie WHERE id > 0")
     void deleteAll();
 
-    @Query("SELECT EXISTS(SELECT 1 FROM PopularMovie WHERE page = :page)")
+    @Query("SELECT EXISTS(SELECT 1 FROM TopRatedMovie WHERE page = :page)")
     boolean hasMoviesAtPage(int page);
 
 }

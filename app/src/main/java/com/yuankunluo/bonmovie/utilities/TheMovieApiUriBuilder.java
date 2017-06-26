@@ -1,4 +1,4 @@
-package com.yuankunluo.bonmovie.services.tools;
+package com.yuankunluo.bonmovie.utilities;
 
 import android.content.Context;
 import android.net.Uri;
@@ -34,7 +34,7 @@ public class TheMovieApiUriBuilder {
                 .build();
     }
 
-    public Uri getPopularMovieAtPageUrl(int page){
+    public Uri getPopularMovieAtPageUri(int page){
         return getBaseUri().buildUpon()
                 .appendPath(mContext.getString(R.string.themoviedb_path_movie))
                 .appendPath(mContext.getString(R.string.themoviedb_path_popular))
@@ -43,6 +43,18 @@ public class TheMovieApiUriBuilder {
                         Integer.toString(page)
                 ).build();
     }
+
+    public Uri getTopRatedMovieAtPageUri(int page){
+        return getBaseUri().buildUpon()
+                .appendPath(mContext.getString(R.string.themoviedb_path_movie))
+                .appendPath(mContext.getString(R.string.themoviedb_path_top_rated))
+                .appendQueryParameter(
+                        mContext.getString(R.string.themoviedb_param_page),
+                        Integer.toString(page)
+                ).build();
+    }
+
+
 
     /**
      * Get proper image url for tablet or phone
