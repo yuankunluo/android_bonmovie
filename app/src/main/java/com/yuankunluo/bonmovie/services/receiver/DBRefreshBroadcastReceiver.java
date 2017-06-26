@@ -3,6 +3,7 @@ package com.yuankunluo.bonmovie.services.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 import com.yuankunluo.bonmovie.services.BonMovieActions;
@@ -13,7 +14,7 @@ import com.yuankunluo.bonmovie.view.listener.DBOnRefreshListener;
  */
 
 public class DBRefreshBroadcastReceiver extends BroadcastReceiver {
-
+    private static final String TAG = DBRefreshBroadcastReceiver.class.getSimpleName();
     private DBOnRefreshListener mListener;
 
     public DBRefreshBroadcastReceiver(){
@@ -32,6 +33,7 @@ public class DBRefreshBroadcastReceiver extends BroadcastReceiver {
            case BonMovieActions.ACTION_DB_INSERTED:
                int page = intent.getIntExtra("page", 0);
                String type = intent.getStringExtra("type");
+               Log.d(TAG, "onReceive " + type +" page " + page);
                if(type.equals(PopularMovie.class.getSimpleName()) && page == 1){
                    if(mListener != null){
                        mListener.onRefreshOver();

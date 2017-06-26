@@ -43,7 +43,7 @@ public class PopularMovieRepository {
         mPopularMovieDao = movieDao;
         mExecutor = executorService;
         mFireBaseDispatcher = dispatcher;
-        Log.i(TAG, "new PopularMovieRepository: " + this.toString());
+        Log.d(TAG, "new PopularMovieRepository: " + this.toString());
     }
 
 
@@ -74,11 +74,11 @@ public class PopularMovieRepository {
             @Override
             public void run() {
                 boolean movieExists = mPopularMovieDao.hasMoviesAtPage(page);
-                Log.d(TAG, Boolean.toString(movieExists));
+                Log.d(TAG, "Page " + page +" exists in DB: " + Boolean.toString(movieExists));
                 if(!movieExists){
                     Bundle pageExtraBundle = new Bundle();
                     pageExtraBundle.putInt("page", page);
-                    Log.i(TAG, "page " + page +" not exists");
+                    Log.d(TAG, "page " + page +" not exists");
                     Job fetchJob = mFireBaseDispatcher.newJobBuilder()
                             .setService(FetchPopularMoviesFromApiJobService.class)
                             .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
@@ -91,6 +91,7 @@ public class PopularMovieRepository {
                             .setTag("page-"+String.valueOf(page))
                             .build();
                     mFireBaseDispatcher.schedule(fetchJob);
+                    Log.d(TAG, "firebase job scheduled for page " + page + " " + fetchJob.toString());
                 }
             }
         });

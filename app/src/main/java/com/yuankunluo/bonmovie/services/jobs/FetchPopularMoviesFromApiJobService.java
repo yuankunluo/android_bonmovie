@@ -21,12 +21,7 @@ import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -47,9 +42,9 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
     public boolean onStartJob(JobParameters job) {
         BonMovieApp.getAppComponent().inject(this);
         final int page = job.getExtras().getInt("page");
-        Log.i(TAG, "onStartJob page: " + Integer.toString(page));
+        Log.d(TAG, "onStartJob page: " + Integer.toString(page));
         String url = mUriBuilder.getPopularMovieAtPageUrl(page).toString();
-        Log.i(TAG, "onStartJob url: " +  url);
+        Log.d(TAG, "onStartJob url: " +  url);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

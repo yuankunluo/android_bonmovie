@@ -29,7 +29,7 @@ public class PopularMovieViewModel extends ViewModel {
             return;
         }
         mPopularMovies = mRepository.getPopularMovies();
-        Log.i(TAG, "init() :" + mPopularMovies.toString());
+        Log.d(TAG, "init() :" + mPopularMovies.toString());
     }
 
     public LiveData<List<PopularMovie>> getPopularMovies(){
