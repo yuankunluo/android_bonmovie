@@ -19,6 +19,7 @@ import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.receiver.DBRefreshBroadcastReceiver;
+import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonParser;
 import com.yuankunluo.bonmovie.view.adapter.MovieRecyclerViewAdapter;
 import com.yuankunluo.bonmovie.view.listener.DBOnRefreshListener;
 import com.yuankunluo.bonmovie.view.listener.EndlessRecyclerViewScrollListener;
@@ -111,6 +112,7 @@ public class TopRatedMovieFragment extends LifecycleFragment implements DBOnRefr
     public void onRefreshOver() {
         if(mSwipRefreshContainer != null){
             mSwipRefreshContainer.setRefreshing(false);
+            Log.d(TAG, "onRefreshOver");
         }
     }
 

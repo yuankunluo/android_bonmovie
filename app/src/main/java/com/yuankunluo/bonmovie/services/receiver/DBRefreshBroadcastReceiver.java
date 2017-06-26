@@ -34,7 +34,7 @@ public class DBRefreshBroadcastReceiver extends BroadcastReceiver {
                int page = intent.getIntExtra("page", 0);
                String type = intent.getStringExtra("type");
                Log.d(TAG, "onReceive " + type +" page " + page);
-               if(type.equals(PopularMovie.class.getSimpleName()) && page == 1){
+               if(page == 1){
                    if(mListener != null){
                        mListener.onRefreshOver();
                    }

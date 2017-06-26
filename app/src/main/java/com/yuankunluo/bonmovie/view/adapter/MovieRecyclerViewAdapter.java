@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
+import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
+import com.yuankunluo.bonmovie.view.interfaces.BonMovieGridDisplayable;
 import com.yuankunluo.bonmovie.view.viewholder.MovieGridViewHolder;
 
 import java.util.List;
@@ -32,6 +34,7 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
         mMovies = ts;
         if(ts != null){
             Log.d(TAG, "onChanged: " +Integer.toString(ts.size()));
+//            Log.d(TAG, "onChanged: " +ts.toString());
         }
         notifyDataSetChanged();
     }
@@ -51,12 +54,9 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
     @Override
     public void onBindViewHolder(MovieGridViewHolder holder, int position) {
         T movie = mMovies.get(position);
-        if(movie instanceof PopularMovie){
-            String posterUrl = ((PopularMovie)movie).getPoster_url();
-            holder.setMovieId(((PopularMovie)movie).getId());
-            if(!TextUtils.isEmpty(posterUrl)){
-                holder.setImageUrl(posterUrl);
-            }
+        if(movie instanceof BonMovieGridDisplayable){
+            holder.setMovieId(((BonMovieGridDisplayable)movie).getGridItemId());
+            holder.setImageUrl(((BonMovieGridDisplayable)movie).getImageUrl());
         }
     }
 

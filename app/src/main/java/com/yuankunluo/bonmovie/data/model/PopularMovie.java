@@ -4,6 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
+import com.yuankunluo.bonmovie.view.interfaces.BonMovieGridDisplayable;
+
 import java.util.Date;
 
 /**
@@ -11,7 +13,17 @@ import java.util.Date;
  */
 
 @Entity
-public class PopularMovie {
+public class PopularMovie implements BonMovieGridDisplayable{
+
+    @Override
+    public String getImageUrl() {
+        return this.poster_url;
+    }
+
+    @Override
+    public int getGridItemId() {
+        return this.id;
+    }
 
     @PrimaryKey
     private int id;
