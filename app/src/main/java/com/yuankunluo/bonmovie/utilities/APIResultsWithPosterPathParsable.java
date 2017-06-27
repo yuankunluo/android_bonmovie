@@ -5,7 +5,7 @@ package com.yuankunluo.bonmovie.utilities;
  */
 
 public interface APIResultsWithPosterPathParsable {
-    public void setPosterImageUrl(String url);
-    public String getPosterImageUrl();
+     void setPosterImageUrl(String url);
+     String getPosterImageUrl();
 
 }

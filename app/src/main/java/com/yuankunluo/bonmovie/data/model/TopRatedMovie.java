@@ -4,16 +4,17 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
+import com.yuankunluo.bonmovie.data.tools.DateConverter;
+import com.yuankunluo.bonmovie.utilities.APIResultsWithMovieIdParsable;
 import com.yuankunluo.bonmovie.utilities.APIResultsWithPagesParsable;
 import com.yuankunluo.bonmovie.utilities.APIResultsWithPosterPathParsable;
-import com.yuankunluo.bonmovie.view.interfaces.BonMovieGridDisplayable;
 
 /**
  * Created by yuank on 2017-06-21.
  */
 
 @Entity
-public class TopRatedMovie implements BonMovieGridDisplayable , APIResultsWithPagesParsable, APIResultsWithPosterPathParsable {
+public class TopRatedMovie implements APIResultsWithMovieIdParsable, APIResultsWithPagesParsable, APIResultsWithPosterPathParsable {
 
     @PrimaryKey
     public int id;
@@ -24,6 +25,16 @@ public class TopRatedMovie implements BonMovieGridDisplayable , APIResultsWithPa
     public String poster_url;
     public int total_pages;
 
+
+    @Override
+    public void setMovieId(int movieId) {
+        id = movieId;
+    }
+
+    @Override
+    public int getMovieId() {
+        return id;
+    }
 
     @Override
     public int getTotalPages() {
@@ -63,11 +74,6 @@ public class TopRatedMovie implements BonMovieGridDisplayable , APIResultsWithPa
     @Override
     public void setIdInCurrentPage(int idInPage) {
         this.id_in_page = idInPage;
-    }
-
-    @Override
-    public int getGridItemId() {
-        return this.id;
     }
 
 

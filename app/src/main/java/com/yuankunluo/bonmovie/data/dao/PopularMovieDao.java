@@ -7,10 +7,9 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.TypeConverters;
 
-import com.yuankunluo.bonmovie.data.model.DateConverter;
+import com.yuankunluo.bonmovie.data.tools.DateConverter;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 
-import java.util.Date;
 import java.util.List;
 
 /**

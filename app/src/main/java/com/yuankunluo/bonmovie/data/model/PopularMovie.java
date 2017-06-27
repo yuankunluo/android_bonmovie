@@ -3,6 +3,7 @@ package com.yuankunluo.bonmovie.data.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.yuankunluo.bonmovie.utilities.APIResultsWithMovieIdParsable;
 import com.yuankunluo.bonmovie.utilities.APIResultsWithPosterPathParsable;
 import com.yuankunluo.bonmovie.utilities.APIResultsWithPagesParsable;
 import com.yuankunluo.bonmovie.view.interfaces.BonMovieGridDisplayable;
@@ -12,7 +13,7 @@ import com.yuankunluo.bonmovie.view.interfaces.BonMovieGridDisplayable;
  */
 
 @Entity
-public class PopularMovie implements BonMovieGridDisplayable, APIResultsWithPagesParsable, APIResultsWithPosterPathParsable {
+public class PopularMovie implements APIResultsWithMovieIdParsable,  APIResultsWithPagesParsable, APIResultsWithPosterPathParsable {
 
     @PrimaryKey
     public int id;
@@ -22,6 +23,16 @@ public class PopularMovie implements BonMovieGridDisplayable, APIResultsWithPage
     public String poster_url;
     public int total_pages;
 
+
+    @Override
+    public void setMovieId(int movieId) {
+        id = movieId;
+    }
+
+    @Override
+    public int getMovieId() {
+        return id;
+    }
 
     @Override
     public int getTotalPages() {
@@ -43,10 +54,6 @@ public class PopularMovie implements BonMovieGridDisplayable, APIResultsWithPage
         return this.poster_url;
     }
 
-    @Override
-    public int getGridItemId() {
-        return this.id;
-    }
 
     @Override
     public int getCurrentPage() {

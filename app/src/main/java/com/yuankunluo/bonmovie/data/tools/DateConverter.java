@@ -1,4 +1,4 @@
-package com.yuankunluo.bonmovie.data.model;
+package com.yuankunluo.bonmovie.data.tools;
 
 import android.arch.persistence.room.TypeConverter;
 

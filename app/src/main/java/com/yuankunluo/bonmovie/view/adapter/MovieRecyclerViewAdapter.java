@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
+import com.yuankunluo.bonmovie.utilities.APIResultsWithMovieIdParsable;
 import com.yuankunluo.bonmovie.utilities.APIResultsWithPosterPathParsable;
 import com.yuankunluo.bonmovie.view.interfaces.BonMovieGridDisplayable;
 import com.yuankunluo.bonmovie.view.viewholder.MovieGridViewHolder;
@@ -52,8 +53,8 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
     @Override
     public void onBindViewHolder(MovieGridViewHolder holder, int position) {
         T movie = mMovies.get(position);
-        if(movie instanceof BonMovieGridDisplayable){
-            holder.setMovieId(((BonMovieGridDisplayable)movie).getGridItemId());
+        if(movie instanceof APIResultsWithMovieIdParsable){
+            holder.setMovieId(((APIResultsWithMovieIdParsable)movie).getMovieId());
         }
         if(movie instanceof APIResultsWithPosterPathParsable){
             holder.setImageUrl(((APIResultsWithPosterPathParsable)movie).getPosterImageUrl());

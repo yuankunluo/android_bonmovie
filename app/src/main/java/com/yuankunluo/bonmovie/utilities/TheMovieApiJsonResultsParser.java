@@ -55,4 +55,11 @@ public class TheMovieApiJsonResultsParser {
         }
         return null;
     }
+
+    public <T> T parseResponseDirectAsObject(JSONObject response, Class<T> klass){
+        return mGson.fromJson(response.toString(),klass);
+    }
+
+
+
 }
