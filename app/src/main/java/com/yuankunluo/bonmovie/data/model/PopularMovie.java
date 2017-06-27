@@ -2,20 +2,17 @@ package com.yuankunluo.bonmovie.data.model;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.arch.persistence.room.TypeConverters;
 
-import com.yuankunluo.bonmovie.utilities.ResultsWithPosterPathParserable;
-import com.yuankunluo.bonmovie.utilities.ResultsWithPagesParserable;
+import com.yuankunluo.bonmovie.utilities.APIResultsWithPosterPathParsable;
+import com.yuankunluo.bonmovie.utilities.APIResultsWithPagesParsable;
 import com.yuankunluo.bonmovie.view.interfaces.BonMovieGridDisplayable;
-
-import java.util.Date;
 
 /**
  * Created by yuank on 2017-06-21.
  */
 
 @Entity
-public class PopularMovie implements BonMovieGridDisplayable, ResultsWithPagesParserable, ResultsWithPosterPathParserable {
+public class PopularMovie implements BonMovieGridDisplayable, APIResultsWithPagesParsable, APIResultsWithPosterPathParsable {
 
     @PrimaryKey
     public int id;
@@ -23,7 +20,18 @@ public class PopularMovie implements BonMovieGridDisplayable, ResultsWithPagesPa
     public String poster_path;
     public int page;
     public String poster_url;
+    public int total_pages;
 
+
+    @Override
+    public int getTotalPages() {
+        return total_pages;
+    }
+
+    @Override
+    public void setTotalPages(int total) {
+        total_pages = total;
+    }
 
     @Override
     public void setPosterImageUrl(String url) {

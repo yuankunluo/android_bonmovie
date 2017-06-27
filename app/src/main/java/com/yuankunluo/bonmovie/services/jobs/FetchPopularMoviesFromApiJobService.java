@@ -15,7 +15,7 @@ import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonParser;
+import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonResultsParser;
 import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
@@ -36,7 +36,8 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
     @Inject TheMovieApiUriBuilder mUriBuilder;
     @Inject PopularMovieDao mDao;
     @Inject ExecutorService mExecutor;
-    @Inject TheMovieApiJsonParser mJsonParser;
+    @Inject
+    TheMovieApiJsonResultsParser mJsonParser;
 
     @Override
     public boolean onStartJob(JobParameters job) {

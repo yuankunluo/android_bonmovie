@@ -15,7 +15,7 @@ import com.yuankunluo.bonmovie.data.dao.TopRatedMovieDao;
 import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonParser;
+import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonResultsParser;
 import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
 
 import org.json.JSONObject;
@@ -36,7 +36,8 @@ public class FetchTopRatedMoviesFromApiJobService extends JobService {
     @Inject TheMovieApiUriBuilder mUriBuilder;
     @Inject TopRatedMovieDao mDao;
     @Inject ExecutorService mExecutor;
-    @Inject TheMovieApiJsonParser mJsonParser;
+    @Inject
+    TheMovieApiJsonResultsParser mJsonParser;
 
     @Override
     public boolean onStartJob(JobParameters job) {

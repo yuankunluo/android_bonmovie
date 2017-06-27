@@ -3,7 +3,7 @@ package com.yuankunluo.bonmovie.dagger2.module;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonParser;
+import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonResultsParser;
 import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
 
 import javax.inject.Named;
@@ -24,8 +24,8 @@ public class UtiltyModule {
     }
 
     @Provides
-    TheMovieApiJsonParser provideTheMovieApiJsonParser(Gson gson, TheMovieApiUriBuilder builder){
-        return new TheMovieApiJsonParser(gson, builder);
+    TheMovieApiJsonResultsParser provideTheMovieApiJsonParser(Gson gson, TheMovieApiUriBuilder builder){
+        return new TheMovieApiJsonResultsParser(gson, builder);
     }
 
 }

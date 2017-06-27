@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
-import com.yuankunluo.bonmovie.data.repository.BonMovieRepository;
+import com.yuankunluo.bonmovie.data.repository.MovieShortRepository;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class PopularMovieViewModel extends ViewModel {
 
     private LiveData<List<PopularMovie>> mPopularMovies;
     @Inject
-    BonMovieRepository mRepository;
+    MovieShortRepository mRepository;
 
 
     public void init(){

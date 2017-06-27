@@ -4,7 +4,10 @@ package com.yuankunluo.bonmovie.utilities;
  * Created by yuank on 2017-06-27.
  */
 
-public interface ResultsWithPagesParserable {
+public interface APIResultsWithPagesParsable {
+
+    int getTotalPages();
+    void setTotalPages(int total);
 
     int getCurrentPage();
     void setCurrentPage(int page);

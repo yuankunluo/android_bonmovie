@@ -30,9 +30,9 @@ import javax.inject.Singleton;
  * Created by yuank on 2017-06-22.
  */
 @Singleton
-public class BonMovieRepository {
+public class MovieShortRepository {
 
-    private final String TAG = BonMovieRepository.class.getSimpleName();
+    private final String TAG = MovieShortRepository.class.getSimpleName();
 
     public enum MoviesType{
         TypePopularMovie("PopularMovie"),
@@ -56,16 +56,16 @@ public class BonMovieRepository {
 
 
     @Inject
-    public BonMovieRepository(PopularMovieDao movieDao,
-                              TopRatedMovieDao topRatedMovieDao,
-                              ExecutorService executorService,
-                              FirebaseJobDispatcher dispatcher
+    public MovieShortRepository(PopularMovieDao movieDao,
+                                TopRatedMovieDao topRatedMovieDao,
+                                ExecutorService executorService,
+                                FirebaseJobDispatcher dispatcher
                                   ){
         mPopularMovieDao = movieDao;
         mExecutor = executorService;
         mFireBaseDispatcher = dispatcher;
         mTopRatedMovieDao = topRatedMovieDao;
-        Log.d(TAG, "new BonMovieRepository: " + this.toString());
+        Log.d(TAG, "new MovieShortRepository: " + this.toString());
     }
 
 

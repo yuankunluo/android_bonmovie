@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
-import com.yuankunluo.bonmovie.data.repository.BonMovieRepository;
+import com.yuankunluo.bonmovie.data.repository.MovieShortRepository;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class TopRatedMovieViewModel extends ViewModel {
     private final String TAG = TopRatedMovieViewModel.class.getSimpleName();
     private LiveData<List<TopRatedMovie>> mMovies;
     @Inject
-    BonMovieRepository mRepository;
+    MovieShortRepository mRepository;
 
 
     public void init(){
