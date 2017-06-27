@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.yuankunluo.bonmovie.R;
+import com.yuankunluo.bonmovie.view.ui.MovieDetailFragment;
 import com.yuankunluo.bonmovie.view.ui.PopularMovieFragment;
 import com.yuankunluo.bonmovie.view.ui.TopRatedMovieFragment;
 
@@ -15,7 +16,7 @@ import com.yuankunluo.bonmovie.view.ui.TopRatedMovieFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
-    final int PAGE_COUNT = 2;
+    final int PAGE_COUNT = 3;
     private Context mContext;
 
     public PagerAdapter(FragmentManager fragmentManager, Context context){
@@ -30,6 +31,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 return new PopularMovieFragment();
             case 1:
                 return new TopRatedMovieFragment();
+            case 2:
+                return new MovieDetailFragment();
             default:
                 return null;
         }

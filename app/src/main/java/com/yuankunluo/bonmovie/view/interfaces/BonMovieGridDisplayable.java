@@ -5,6 +5,5 @@ package com.yuankunluo.bonmovie.view.interfaces;
  */
 
 public interface BonMovieGridDisplayable {
-    public String getImageUrl();
     public int getGridItemId();
 }

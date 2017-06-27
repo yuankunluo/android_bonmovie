@@ -3,7 +3,6 @@ package com.yuankunluo.bonmovie.view.adapter;
 import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,7 @@ import android.view.ViewGroup;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
-import com.yuankunluo.bonmovie.data.model.PopularMovie;
-import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
+import com.yuankunluo.bonmovie.utilities.ResultsWithPosterPathParserable;
 import com.yuankunluo.bonmovie.view.interfaces.BonMovieGridDisplayable;
 import com.yuankunluo.bonmovie.view.viewholder.MovieGridViewHolder;
 
@@ -43,7 +41,7 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
     @Override
     public MovieGridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.movie_item_grid, parent, false);
+        View itemView = inflater.inflate(R.layout.fragment_movie_item_grid, parent, false);
         MovieGridViewHolder viewHolder = new MovieGridViewHolder(itemView);
         // inject ImageViewHolder
         BonMovieApp.getAppComponent().inject(viewHolder);
@@ -56,7 +54,9 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
         T movie = mMovies.get(position);
         if(movie instanceof BonMovieGridDisplayable){
             holder.setMovieId(((BonMovieGridDisplayable)movie).getGridItemId());
-            holder.setImageUrl(((BonMovieGridDisplayable)movie).getImageUrl());
+        }
+        if(movie instanceof ResultsWithPosterPathParserable){
+            holder.setImageUrl(((ResultsWithPosterPathParserable)movie).getPosterImageUrl());
         }
     }
 

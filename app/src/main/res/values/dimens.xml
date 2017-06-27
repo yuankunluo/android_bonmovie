@@ -6,4 +6,17 @@
     <dimen name="recycler_view_popular_movie_height">0dp</dimen>
     <dimen name="poster_grid_height">360dp</dimen>
     <dimen name="poster_grid_width">240dp</dimen>
+
+
+    <!--Movie detail -->
+
+
+    <dimen name="movie_detail_header_image_height">400dp</dimen>
+    <dimen name="movie_detail_title_margin">18dp</dimen>
+    <dimen name="movie_detail_padding">5dp</dimen>
+    <dimen name="movie_detail_body_text_size">18sp</dimen>
+    <dimen name="app_bar_elevation">56dp</dimen>
+
+
+
 </resources>

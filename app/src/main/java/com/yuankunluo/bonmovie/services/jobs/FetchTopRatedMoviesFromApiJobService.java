@@ -50,7 +50,7 @@ public class FetchTopRatedMoviesFromApiJobService extends JobService {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        final TopRatedMovie[] newMovies = mJsonParser.parseResponseToMovieArray(response, TopRatedMovie[].class);
+                        final TopRatedMovie[] newMovies = mJsonParser.parseResponseResultsToArray(response, TopRatedMovie.class, TopRatedMovie[].class);
                         // save result into local db in worker thread
                         mExecutor.execute(new Runnable() {
                             @Override

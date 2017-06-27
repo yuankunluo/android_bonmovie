@@ -28,17 +28,25 @@ public class TheMovieApiJsonParser {
         mUriBuilder = uriBuilder;
     }
 
-    public <T> T[] parseResponseToMovieArray(JSONObject response, Class<T[]> klass){
+    public <T> T[] parseResponseResultsToArray(JSONObject response, Class<T> klass, Class<T[]> klassArray){
         try{
             int page = response.getInt("page");
             JSONArray results = response.getJSONArray("results");
+
             for(int i = 0; i < results.length(); i++){
                 JSONObject object = results.getJSONObject(i);
-                object.put("id_in_page", i+1);
-                object.put("poster_url", mUriBuilder.getPosterBaseUri().toString() + object.getString("poster_path"));
-                object.put("page", page);
+                if(ResultsWithPagesParserable.class.isAssignableFrom(klass)){
+                    object.put("id_in_page", i+1);
+                    object.put("page", page);
+                }
+                if(ResultsWithPosterPathParserable.class.isAssignableFrom(klass)){
+                    String poster_url = mUriBuilder.getPosterBaseUri() + object.getString("poster_path");
+                    object.put("poster_url", poster_url);
+                }
+
             }
-            return  mGson.fromJson(results.toString(), klass);
+
+            return  mGson.fromJson(results.toString(), klassArray);
 
         } catch (JSONException e){
             Log.e(TAG, "json parse exeception: " + response.toString());

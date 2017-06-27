@@ -19,9 +19,8 @@ import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.receiver.DBRefreshBroadcastReceiver;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonParser;
 import com.yuankunluo.bonmovie.view.adapter.MovieRecyclerViewAdapter;
-import com.yuankunluo.bonmovie.view.listener.DBOnRefreshListener;
+import com.yuankunluo.bonmovie.services.listener.OnDBRefreshListener;
 import com.yuankunluo.bonmovie.view.listener.EndlessRecyclerViewScrollListener;
 import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
 
@@ -29,7 +28,7 @@ import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
  * Created by yuank on 2017-06-22.
  */
 
-public class TopRatedMovieFragment extends LifecycleFragment implements DBOnRefreshListener {
+public class TopRatedMovieFragment extends LifecycleFragment implements OnDBRefreshListener {
     final String TAG = TopRatedMovieFragment.class.getSimpleName();
     private TopRatedMovieViewModel mViewModel;
     private RecyclerView mRecyclerView;
@@ -69,7 +68,7 @@ public class TopRatedMovieFragment extends LifecycleFragment implements DBOnRefr
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
-        View root =  inflater.inflate(R.layout.movie_fragment, container, false);
+        View root =  inflater.inflate(R.layout.fragment_movies, container, false);
         mRecyclerView = root.findViewById(R.id.recyclerview_movies);
         int columnNumber = getResources().getInteger(R.integer.grid_column);
         mLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="grid_column">2</integer>
+    <item name="movie_detail_layout_collapseParallaxMultiplier" format="float" type="dimen">0.7</item>
 </resources>

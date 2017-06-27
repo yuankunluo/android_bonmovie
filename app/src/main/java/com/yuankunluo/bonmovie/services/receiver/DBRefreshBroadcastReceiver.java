@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.yuankunluo.bonmovie.data.model.PopularMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
-import com.yuankunluo.bonmovie.view.listener.DBOnRefreshListener;
+import com.yuankunluo.bonmovie.services.listener.OnDBRefreshListener;
 
 /**
  * Created by yuank on 2017-06-26.
@@ -15,13 +14,13 @@ import com.yuankunluo.bonmovie.view.listener.DBOnRefreshListener;
 
 public class DBRefreshBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = DBRefreshBroadcastReceiver.class.getSimpleName();
-    private DBOnRefreshListener mListener;
+    private OnDBRefreshListener mListener;
 
     public DBRefreshBroadcastReceiver(){
         super();
     }
 
-    public DBRefreshBroadcastReceiver(DBOnRefreshListener listener){
+    public DBRefreshBroadcastReceiver(OnDBRefreshListener listener){
         super();
         mListener = listener;
     }
