@@ -5,9 +5,13 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.yuankunluo.bonmovie.data.dao.MovieDetailDao;
+import com.yuankunluo.bonmovie.data.dao.MovieReviewDao;
+import com.yuankunluo.bonmovie.data.dao.MovieVideoDao;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
 import com.yuankunluo.bonmovie.data.dao.TopRatedMovieDao;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
+import com.yuankunluo.bonmovie.data.model.MovieVideo;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -45,4 +49,17 @@ public class DataBaseModule {
         return gsonBuilder.create();
     }
 
+    @Provides
+    MovieDetailDao provideMovieDetailDao(BonMovieDatabase db){
+        return db.movieDetailDao();
+    }
+
+    @Provides
+    MovieReviewDao provideMovieReviewDao(BonMovieDatabase db){
+        return db.movieReviewDao();
+    }
+    @Provides
+    MovieVideoDao provideMovieVideoDao(BonMovieDatabase db){
+        return db.movieVideoDao();
+    }
 }

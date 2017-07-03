@@ -3,6 +3,7 @@ package com.yuankunluo.bonmovie.view.ui;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,17 +19,18 @@ import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
-import com.yuankunluo.bonmovie.services.receiver.DBRefreshBroadcastReceiver;
+import com.yuankunluo.bonmovie.services.receiver.DBBRefreshBroadcastReceiver;
 import com.yuankunluo.bonmovie.view.adapter.MovieRecyclerViewAdapter;
-import com.yuankunluo.bonmovie.services.listener.OnDBRefreshListener;
+import com.yuankunluo.bonmovie.services.listener.OnSwipeRefreshListener;
 import com.yuankunluo.bonmovie.view.listener.EndlessRecyclerViewScrollListener;
+import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
 
 /**
  * Created by yuank on 2017-06-22.
  */
 
-public class PopularMovieFragment extends LifecycleFragment implements OnDBRefreshListener {
+public class PopularMovieFragment extends LifecycleFragment implements OnSwipeRefreshListener {
     final String TAG = PopularMovieFragment.class.getSimpleName();
     private PopularMovieViewModel mViewModel;
     private RecyclerView mRecyclerView;
@@ -73,7 +75,7 @@ public class PopularMovieFragment extends LifecycleFragment implements OnDBRefre
         int columnNumber = getResources().getInteger(R.integer.grid_column);
         mLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>();
+        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>(getContext());
         mRecyclerView.setAdapter(movieRecyclerViewAdapter);
         mScrollListener = new EndlessRecyclerViewScrollListener((GridLayoutManager)mLayoutManager,1) {
             @Override
@@ -100,8 +102,8 @@ public class PopularMovieFragment extends LifecycleFragment implements OnDBRefre
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         // register broadcast receiver
-        IntentFilter filter = new IntentFilter(BonMovieAction.ACTION_DB_INSERTED);
-        mBroadcastReceiver = new DBRefreshBroadcastReceiver(this);
+        IntentFilter filter = new IntentFilter(BonMovieAction.ACTION_DB_INSERTED_MOVIES);
+        mBroadcastReceiver = new DBBRefreshBroadcastReceiver(this);
         getActivity().registerReceiver(mBroadcastReceiver,filter);
         return root;
     }

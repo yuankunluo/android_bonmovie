@@ -5,9 +5,9 @@ import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
 import com.yuankunluo.bonmovie.data.tools.DateConverter;
-import com.yuankunluo.bonmovie.utilities.APIResultsWithMovieIdParsable;
-import com.yuankunluo.bonmovie.utilities.APIResultsWithPagesParsable;
-import com.yuankunluo.bonmovie.utilities.APIResultsWithPosterPathParsable;
+import com.yuankunluo.bonmovie.services.utilities.APIResultsWithMovieIdParsable;
+import com.yuankunluo.bonmovie.services.utilities.APIResultsWithPagesParsable;
+import com.yuankunluo.bonmovie.services.utilities.APIResultsWithPosterPathParsable;
 
 /**
  * Created by yuank on 2017-06-21.

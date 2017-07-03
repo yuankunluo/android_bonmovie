@@ -1,4 +1,4 @@
-package com.yuankunluo.bonmovie.utilities;
+package com.yuankunluo.bonmovie.services.utilities;
 
 import android.util.Log;
 

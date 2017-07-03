@@ -2,6 +2,8 @@ package com.yuankunluo.bonmovie.data.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.yuankunluo.bonmovie.data.model.MovieReview;
@@ -13,6 +15,12 @@ import java.util.List;
  */
 @Dao
 public interface MovieReviewDao {
-    @Query("SELECT * FROM MovieReview WHERE movie_id = :id ORDER BY page ASC, id_in_page ASC")
-    LiveData<List<MovieReview>> getMovieReviewsByMovieId(int id);
+    @Query("SELECT * FROM MovieReview WHERE movie_id = :id AND page = :page ORDER BY page ASC, id_in_page ASC")
+    LiveData<List<MovieReview>> getMovieReviewsByMovieIdAndPage(int id, int page);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertReviews(MovieReview... reviews);
+
+    @Query("DELETE FROM MovieReview WHERE movie_id = :id")
+    void deleteReviewsByMovieId(int id);
 }

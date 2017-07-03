@@ -35,9 +35,23 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".services.receiver.DBRefreshBroadcastReceiver" android:exported="false">
+        <service android:name=".services.jobs.FetchMovieDetailFromAPIJobService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.yuankunluo.bonmovie.action.DB_INSERTED"/>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name=".services.receiver.DBBRefreshBroadcastReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="com.yuankunluo.bonmovie.action.DB_INSERTED_MOVIES"/>
+                <action android:name="com.yuankunluo.bonmovie.action.DB_INSERTED_MOVIE_DETAIL"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".services.receiver.MovieSelectedBroadcastReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="com.yuankunluo.bonmovie.action.MOVIE_SELECTED"/>
             </intent-filter>
         </receiver>
 

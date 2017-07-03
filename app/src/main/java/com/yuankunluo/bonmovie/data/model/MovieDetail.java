@@ -3,7 +3,7 @@ package com.yuankunluo.bonmovie.data.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.yuankunluo.bonmovie.utilities.APIResultsWithPosterPathParsable;
+import com.yuankunluo.bonmovie.services.utilities.APIResultsWithPosterPathParsable;
 
 /**
  * Created by yuank on 2017-06-27.
@@ -13,7 +13,7 @@ import com.yuankunluo.bonmovie.utilities.APIResultsWithPosterPathParsable;
 public class MovieDetail implements APIResultsWithPosterPathParsable {
     @PrimaryKey
     public int id;
-    public int imdb_id;
+    public String imdb_id;
     public String original_language;
     public String original_title;
     public String overview;

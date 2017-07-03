@@ -9,14 +9,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.firebase.jobdispatcher.JobParameters;
 import com.firebase.jobdispatcher.JobService;
-import com.google.gson.Gson;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonResultsParser;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
+import com.yuankunluo.bonmovie.services.utilities.TheMovieApiJsonResultsParser;
+import com.yuankunluo.bonmovie.services.utilities.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
 import org.json.JSONObject;
@@ -32,7 +31,6 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
     private final String TAG = FetchPopularMoviesFromApiJobService.class.getSimpleName();
 
     @Inject VolleyWebService mWebService;
-    @Inject Gson mGson;
     @Inject TheMovieApiUriBuilder mUriBuilder;
     @Inject PopularMovieDao mDao;
     @Inject ExecutorService mExecutor;
@@ -58,7 +56,7 @@ public class FetchPopularMoviesFromApiJobService extends JobService {
                             public void run() {
                                 mDao.insertMovies(newMovies);
                                 Intent intent = new Intent();
-                                intent.setAction(BonMovieAction.ACTION_DB_INSERTED);
+                                intent.setAction(BonMovieAction.ACTION_DB_INSERTED_MOVIES);
                                 intent.putExtra("page", page);
                                 intent.putExtra("type",PopularMovie.class.getSimpleName());
                                 sendBroadcast(intent);

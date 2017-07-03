@@ -13,11 +13,15 @@ import com.yuankunluo.bonmovie.dagger2.module.SharedPreferencesModule;
 import com.yuankunluo.bonmovie.dagger2.module.UtiltyModule;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 import com.yuankunluo.bonmovie.data.repository.MovieShortRepository;
+import com.yuankunluo.bonmovie.services.jobs.FetchMovieDetailFromAPIJobService;
 import com.yuankunluo.bonmovie.services.jobs.FetchPopularMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.jobs.FetchTopRatedMoviesFromApiJobService;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
+import com.yuankunluo.bonmovie.services.utilities.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
+import com.yuankunluo.bonmovie.view.ui.MainActivity;
+import com.yuankunluo.bonmovie.view.ui.MovieDetailFragment;
 import com.yuankunluo.bonmovie.view.viewholder.MovieGridViewHolder;
+import com.yuankunluo.bonmovie.viewmodel.MovieDetailViewModel;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
 import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
 
@@ -35,9 +39,12 @@ public interface AppComponent {
     void inject(BonMovieApp app);
     void inject(PopularMovieViewModel viewModel);
     void inject(TopRatedMovieViewModel viewModel);
+    void inject(MovieDetailViewModel viewModel);
     void inject(FetchPopularMoviesFromApiJobService jobService);
     void inject(FetchTopRatedMoviesFromApiJobService jobService);
+    void inject(FetchMovieDetailFromAPIJobService jobService);
     void inject(MovieGridViewHolder holder);
+    void inject(MovieDetailFragment fragment);
     MovieShortRepository getMovieRepository();
     BonMovieDatabase getDatabase();
     SharedPreferences getSharedPreference();
@@ -45,5 +52,4 @@ public interface AppComponent {
     TheMovieApiUriBuilder getApiUriBuilder();
     FirebaseJobDispatcher getFirebaseJobDispatcher();
     Gson getGson();
-
 }

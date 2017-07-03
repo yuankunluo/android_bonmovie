@@ -18,17 +18,18 @@ import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
-import com.yuankunluo.bonmovie.services.receiver.DBRefreshBroadcastReceiver;
+import com.yuankunluo.bonmovie.services.receiver.DBBRefreshBroadcastReceiver;
 import com.yuankunluo.bonmovie.view.adapter.MovieRecyclerViewAdapter;
-import com.yuankunluo.bonmovie.services.listener.OnDBRefreshListener;
+import com.yuankunluo.bonmovie.services.listener.OnSwipeRefreshListener;
 import com.yuankunluo.bonmovie.view.listener.EndlessRecyclerViewScrollListener;
+import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
 import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
 
 /**
  * Created by yuank on 2017-06-22.
  */
 
-public class TopRatedMovieFragment extends LifecycleFragment implements OnDBRefreshListener {
+public class TopRatedMovieFragment extends LifecycleFragment implements OnSwipeRefreshListener {
     final String TAG = TopRatedMovieFragment.class.getSimpleName();
     private TopRatedMovieViewModel mViewModel;
     private RecyclerView mRecyclerView;
@@ -73,7 +74,7 @@ public class TopRatedMovieFragment extends LifecycleFragment implements OnDBRefr
         int columnNumber = getResources().getInteger(R.integer.grid_column);
         mLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>();
+        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>(getContext());
         mRecyclerView.setAdapter(movieRecyclerViewAdapter);
         mScrollListener = new EndlessRecyclerViewScrollListener((GridLayoutManager)mLayoutManager,1) {
             @Override
@@ -100,8 +101,8 @@ public class TopRatedMovieFragment extends LifecycleFragment implements OnDBRefr
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         // register broadcast receiver
-        IntentFilter filter = new IntentFilter(BonMovieAction.ACTION_DB_INSERTED);
-        mBroadcastReceiver = new DBRefreshBroadcastReceiver(this);
+        IntentFilter filter = new IntentFilter(BonMovieAction.ACTION_DB_INSERTED_MOVIES);
+        mBroadcastReceiver = new DBBRefreshBroadcastReceiver(this);
         getActivity().registerReceiver(mBroadcastReceiver,filter);
         return root;
     }

@@ -5,7 +5,6 @@ import android.content.Context;
 import com.android.volley.toolbox.ImageLoader;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
 import com.firebase.jobdispatcher.GooglePlayDriver;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
 import javax.inject.Named;

@@ -4,10 +4,13 @@
     android:layout_height="match_parent">
 
     <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/imv_movie_header_poster"
+        android:id="@+id/imv_movie_detail_header_poster"
         android:layout_width="match_parent"
         android:layout_height="@dimen/movie_detail_header_image_height" />
 
-
+    <TextView
+        android:text="movie detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

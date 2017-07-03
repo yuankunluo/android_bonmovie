@@ -8,8 +8,6 @@ import android.arch.persistence.room.Query;
 
 import com.yuankunluo.bonmovie.data.model.MovieDetail;
 
-import javax.inject.Inject;
-
 /**
  * Created by yuank on 2017-06-27.
  */
@@ -20,7 +18,10 @@ public interface MovieDetailDao {
     public LiveData<MovieDetail> getMovieById(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void safeMovieDetail(MovieDetail movieDetail);
+    void insertMovieDetail(MovieDetail movieDetail);
+
+    @Query("SELECT EXISTS (SELECT 1 FROM MovieDetail WHERE id = :id)")
+    boolean hasMovieById(int id);
 
     @Query("DELETE FROM MovieDetail WHERE id=:id")
     void deleteMovieById(int id);

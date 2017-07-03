@@ -3,8 +3,8 @@ package com.yuankunluo.bonmovie.data.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.yuankunluo.bonmovie.utilities.APIResultsWithMovieIdParsable;
-import com.yuankunluo.bonmovie.utilities.APIResultsWithPagesParsable;
+import com.yuankunluo.bonmovie.services.utilities.APIResultsWithMovieIdParsable;
+import com.yuankunluo.bonmovie.services.utilities.APIResultsWithPagesParsable;
 
 /**
  * Created by yuank on 2017-06-27.

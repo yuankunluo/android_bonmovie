@@ -1,9 +1,9 @@
-package com.yuankunluo.bonmovie.utilities;
+package com.yuankunluo.bonmovie.services.utilities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 
-import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
 
 import javax.inject.Inject;
@@ -54,6 +54,13 @@ public class TheMovieApiUriBuilder {
                 ).build();
     }
 
+
+    public Uri getMovieDetailByMovieId(int id){
+        return getBaseUri().buildUpon()
+                .appendPath(mContext.getString(R.string.themoviedb_path_movie))
+                .appendPath(Integer.toString(id))
+                .build();
+    }
 
 
     /**

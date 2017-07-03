@@ -3,8 +3,8 @@ package com.yuankunluo.bonmovie.dagger2.module;
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiJsonResultsParser;
-import com.yuankunluo.bonmovie.utilities.TheMovieApiUriBuilder;
+import com.yuankunluo.bonmovie.services.utilities.TheMovieApiJsonResultsParser;
+import com.yuankunluo.bonmovie.services.utilities.TheMovieApiUriBuilder;
 
 import javax.inject.Named;
 import javax.inject.Singleton;

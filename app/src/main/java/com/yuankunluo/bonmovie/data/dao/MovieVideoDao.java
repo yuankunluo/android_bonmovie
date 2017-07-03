@@ -6,6 +6,8 @@ package com.yuankunluo.bonmovie.data.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.yuankunluo.bonmovie.data.model.MovieVideo;
@@ -18,5 +20,10 @@ public interface MovieVideoDao {
     @Query("SELECT * FROM MovieVideo WHERE movie_id = :id")
     LiveData<List<MovieVideo>> getVideosByMovieId(int id);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertMovieVideos(MovieVideo... videos);
+
+    @Query("DELETE FROM MovieVideo WHERE movie_id =:id")
+    void deleteMovieVideosByMovieId(int id);
 
 }
