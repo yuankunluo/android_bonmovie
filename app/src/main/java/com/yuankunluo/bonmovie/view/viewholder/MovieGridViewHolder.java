@@ -38,7 +38,6 @@ public class MovieGridViewHolder extends RecyclerView.ViewHolder {
                 intent.putExtra("movie_id", mMovieId);
                 // send a click broadcast
                 context.sendBroadcast(intent);
-
             }
         });
     }

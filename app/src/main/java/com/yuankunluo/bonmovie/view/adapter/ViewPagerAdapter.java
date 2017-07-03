@@ -15,12 +15,12 @@ import com.yuankunluo.bonmovie.view.ui.TopRatedMovieFragment;
  * Created by yuank on 2017-06-22.
  */
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     final int PAGE_COUNT = 3;
     private Context mContext;
 
-    public PagerAdapter(FragmentManager fragmentManager, Context context){
+    public ViewPagerAdapter(FragmentManager fragmentManager, Context context){
         super(fragmentManager);
         mContext = context;
     }
@@ -33,7 +33,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new TopRatedMovieFragment();
             case 2:
-                return new MovieDetailFragment();
+                return new TopRatedMovieFragment();
             default:
                 return null;
         }

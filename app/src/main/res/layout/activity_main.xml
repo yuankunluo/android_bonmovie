@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.view.ViewPager
-    android:id="@+id/viewpager"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <FrameLayout
+    android:id="@+id/movies_list_panel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yuankunluo.bonmovie.view.ui.MainActivity">
+        android:name="com.yuankunluo.bonmovie.view.ui.MoviePaggerFragment"/>
 
-
-    <android.support.v4.view.PagerTabStrip
-        android:id="@+id/pager_tab_strip"
-        android:layout_gravity="top"
-        android:paddingBottom="@dimen/pager_tab_strip_padding_bottom"
-        android:paddingLeft="@dimen/pager_tab_strip_padding_left_right"
-        android:paddingRight="@dimen/pager_tab_strip_padding_left_right"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tab_height"/>
-
-
-
-
-</android.support.v4.view.ViewPager>
+</LinearLayout>

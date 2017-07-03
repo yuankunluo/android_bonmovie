@@ -71,6 +71,7 @@ public class TopRatedMovieFragment extends LifecycleFragment implements OnSwipeR
         Log.d(TAG, "onCreateView");
         View root =  inflater.inflate(R.layout.fragment_movies, container, false);
         mRecyclerView = root.findViewById(R.id.recyclerview_movies);
+        // set layout manager
         int columnNumber = getResources().getInteger(R.integer.grid_column);
         mLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);

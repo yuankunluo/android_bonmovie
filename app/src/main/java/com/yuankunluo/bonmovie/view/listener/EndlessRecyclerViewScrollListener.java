@@ -29,6 +29,7 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
 
     private RecyclerView.LayoutManager mLayoutManager;
 
+
     public EndlessRecyclerViewScrollListener(LinearLayoutManager layoutManager, int startingPageIndex) {
         this.mLayoutManager = layoutManager;
         this.startingPageIndex = startingPageIndex;
