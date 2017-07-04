@@ -43,7 +43,10 @@ public class DBBRefreshBroadcastReceiver extends BroadcastReceiver {
                break;
            case BonMovieAction.ACTION_DB_INSERTED_MOVIE_DETAL:
                int movieId = intent.getIntExtra("movie_id",0);
-               Log.d(TAG, "received notification of movie detail inserted: " + movieId );
+               Log.d(TAG, "onReceive movie detail inserted: " + movieId );
+               if(mListener != null){
+                   mListener.onRefreshOver();
+               }
        }
     }
 }

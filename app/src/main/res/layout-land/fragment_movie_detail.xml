@@ -11,31 +11,34 @@
             type="com.yuankunluo.bonmovie.data.model.MovieDetail" />
     </data>
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:scrollbars="vertical">
+
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/imv_movie_detail_header_poster"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/movie_detail_header_image_width"
             android:layout_height="@dimen/movie_detail_header_image_height"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
 
 
         <TextView
+            style="@style/MovieDetailStyle"
             android:id="@+id/tv_movie_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{movieDetail.original_title}"
-            style="@style/MovieDetailStyle"
             android:textSize="@dimen/movie_detail_title_text_size"
-            app:layout_constraintTop_toBottomOf="@+id/imv_movie_detail_header_poster" />
-
+            app:layout_constraintLeft_toRightOf="@+id/imv_movie_detail_header_poster" />
 
         <TextView
             style="@style/MovieDetailStyle"
@@ -43,6 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{movieDetail.release_date}"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_movie_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
 
 
@@ -52,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{movieDetail.overview}"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_movie_title"
             app:layout_constraintTop_toBottomOf="@id/tv_release_date" />
 
 
@@ -68,6 +73,5 @@
 
 
     </android.support.constraint.ConstraintLayout>
-
-</ScrollView>
+    </ScrollView>
 </layout>

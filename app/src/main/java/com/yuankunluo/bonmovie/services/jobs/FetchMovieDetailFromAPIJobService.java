@@ -58,7 +58,7 @@ public class FetchMovieDetailFromAPIJobService extends JobService {
                             public void run() {
                                 // save movie detail into db
                                 mDao.insertMovieDetail(movieDetail);
-                                Log.d(TAG, "insert movie detail into db");
+                                Log.d(TAG, "insert movie detail into db " + movieIdExtra);
                                 // send broadcasting
                                 Intent intent = new Intent();
                                 intent.setAction(BonMovieAction.ACTION_DB_INSERTED_MOVIE_DETAL);

@@ -57,7 +57,7 @@ public class MovieDetailRepository {
             @Override
             public void run() {
                 if(mDetailDao.hasMovieById(id)){
-                    Log.d(TAG, "refreshMovieDetailById: MovieDetail exists " + Integer.toString(id));
+                    Log.d(TAG, "refreshMovieDetailById: MovieDetailActivity exists " + Integer.toString(id));
                     return;
                 }
                 Bundle jobBundle = new Bundle();

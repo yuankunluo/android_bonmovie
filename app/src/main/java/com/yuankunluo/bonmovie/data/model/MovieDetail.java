@@ -38,7 +38,7 @@ public class MovieDetail implements APIResultsWithPosterPathParsable {
 
     @Override
     public String toString() {
-        return "MovieDetail{" +
+        return "MovieDetailActivity{" +
                 "id=" + id +
                 ", imdb_id=" + imdb_id +
                 ", original_language='" + original_language + '\'' +

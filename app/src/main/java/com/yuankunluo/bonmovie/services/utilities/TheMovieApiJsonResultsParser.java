@@ -57,6 +57,15 @@ public class TheMovieApiJsonResultsParser {
     }
 
     public <T> T parseResponseDirectAsObject(JSONObject response, Class<T> klass){
+        try {
+            if (APIResultsWithPosterPathParsable.class.isAssignableFrom(klass)) {
+                String poster_url = mUriBuilder.getPosterBaseUri() + response.getString("poster_path");
+                response.put("poster_url", poster_url);
+            }
+        } catch (JSONException e){
+            Log.e(TAG, "parser error");
+            e.printStackTrace();
+        }
         return mGson.fromJson(response.toString(),klass);
     }
 

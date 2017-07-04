@@ -1,5 +1,6 @@
 package com.yuankunluo.bonmovie.view.ui;
 
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +12,7 @@ import android.view.View;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
+import com.yuankunluo.bonmovie.data.model.MovieDetail;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.receiver.MovieSelectedBroadcastReceiver;
 import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity  implements OnMovieSelectedL
         mDualPanel = mMovieDetailPanel != null;
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean("dualpanel", mDualPanel);
-        editor.apply();
+        editor.commit();
         Log.d(TAG, "dualpanel:" + Boolean.toString(mDualPanel));
         // insert fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -72,10 +74,25 @@ public class MainActivity extends AppCompatActivity  implements OnMovieSelectedL
     public void selectMovie(int movieId) {
         Log.d(TAG,"selectMovie: " + movieId);
         mSelectedMovieId = movieId;
+        showMovieDetail();
     }
 
     @Override
     public int getSelectedMovieId() {
         return mSelectedMovieId;
+    }
+
+    private void showMovieDetail(){
+        Log.d(TAG,"showMovieDetail: " + mSelectedMovieId );
+        if(mDualPanel){
+            // Tablet
+        } else {
+            // Phone
+            Log.d(TAG, "showMovieDetail: start new activity");
+            Intent intent = new Intent();
+            intent.setClass(this,MovieDetailActivity.class);
+            intent.putExtra("movie_id", mSelectedMovieId);
+            startActivity(intent);
+        }
     }
 }

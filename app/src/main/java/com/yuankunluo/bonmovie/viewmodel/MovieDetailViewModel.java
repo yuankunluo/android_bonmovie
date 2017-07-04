@@ -2,6 +2,7 @@ package com.yuankunluo.bonmovie.viewmodel;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 import com.yuankunluo.bonmovie.data.model.MovieDetail;
 import com.yuankunluo.bonmovie.data.model.MovieReview;
@@ -29,6 +30,7 @@ public class MovieDetailViewModel extends ViewModel {
             return;
         }
         mMovieDetail = movieDetailRepository.getMovieDetailByMovieId(movieId);
+        Log.d(TAG, "init " + mMovieDetail.toString());
     }
 
     public LiveData<MovieDetail> getMovieDetail(){
