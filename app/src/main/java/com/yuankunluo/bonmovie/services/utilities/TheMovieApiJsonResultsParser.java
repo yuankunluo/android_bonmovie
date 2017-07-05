@@ -27,10 +27,15 @@ public class TheMovieApiJsonResultsParser {
         mUriBuilder = uriBuilder;
     }
 
+
+
     public <T> T[] parseResponseResultsToArray(JSONObject response, Class<T> klass, Class<T[]> klassArray){
         try{
-
             JSONArray results = response.getJSONArray("results");
+            int movie_id = 0;
+            if(response.has("id")){
+                movie_id = response.getInt("id");
+            }
 
             for(int i = 0; i < results.length(); i++){
                 JSONObject object = results.getJSONObject(i);
@@ -45,7 +50,9 @@ public class TheMovieApiJsonResultsParser {
                     String poster_url = mUriBuilder.getPosterBaseUri() + object.getString("poster_path");
                     object.put("poster_url", poster_url);
                 }
-
+                if(APIResultsWithMovieIdParsable.class.isAssignableFrom(klass)){
+                    object.put("movie_id", movie_id);
+                }
             }
             return  mGson.fromJson(results.toString(), klassArray);
 
@@ -68,6 +75,12 @@ public class TheMovieApiJsonResultsParser {
         }
         return mGson.fromJson(response.toString(),klass);
     }
+
+
+
+
+
+
 
 
 

@@ -28,6 +28,7 @@ public class TopRatedMovieViewModel extends ViewModel {
             return;
         }
         mMovies = mRepository.getTopRatedMovies();
+        loadMoviesAtPage(1);
         Log.d(TAG, "init() :" + mMovies.toString());
     }
 

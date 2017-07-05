@@ -3,13 +3,11 @@ package com.yuankunluo.bonmovie.view.ui;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,10 +19,9 @@ import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.receiver.DBBRefreshBroadcastReceiver;
-import com.yuankunluo.bonmovie.view.adapter.MovieRecyclerViewAdapter;
+import com.yuankunluo.bonmovie.view.adapter.MoviesRecyclerViewAdapter;
 import com.yuankunluo.bonmovie.services.listener.OnSwipeRefreshListener;
 import com.yuankunluo.bonmovie.view.listener.EndlessRecyclerViewScrollListener;
-import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
 
 /**
@@ -35,7 +32,7 @@ public class PopularMovieFragment extends LifecycleFragment implements OnSwipeRe
     final String TAG = PopularMovieFragment.class.getSimpleName();
     private PopularMovieViewModel mViewModel;
     private RecyclerView mRecyclerView;
-    private MovieRecyclerViewAdapter<PopularMovie> movieRecyclerViewAdapter;
+    private MoviesRecyclerViewAdapter<PopularMovie> movieRecyclerViewAdapter;
     private SwipeRefreshLayout mSwipRefreshContainer;
     private BroadcastReceiver mBroadcastReceiver;
     private EndlessRecyclerViewScrollListener mScrollListener;
@@ -76,7 +73,7 @@ public class PopularMovieFragment extends LifecycleFragment implements OnSwipeRe
         int columnNumber = getResources().getInteger(R.integer.grid_column);
         mLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>(getContext());
+        movieRecyclerViewAdapter = new MoviesRecyclerViewAdapter<>(getContext());
         mRecyclerView.setAdapter(movieRecyclerViewAdapter);
         mScrollListener = new EndlessRecyclerViewScrollListener((GridLayoutManager)mLayoutManager,1) {
             @Override

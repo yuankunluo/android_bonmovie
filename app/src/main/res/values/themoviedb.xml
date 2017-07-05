@@ -16,4 +16,5 @@
     <string name="themoviedb_image_path_p">p</string>
     <string name="themoviedb_image_path_w185">w185</string>
     <string name="themoviedb_image_path_w500">w500</string>
+    <string name="themoviedb_image_path_videos">videos</string>
 </resources>

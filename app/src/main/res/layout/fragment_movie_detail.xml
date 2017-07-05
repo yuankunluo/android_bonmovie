@@ -18,7 +18,8 @@
         android:layout_width="match_parent"
 
         android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        tools:ignore="ScrollViewSize">
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/imv_movie_detail_header_poster"
@@ -45,6 +46,26 @@
             android:text="@{movieDetail.release_date}"
             app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
 
+        <TextView
+            style="@style/MovieDetailStyle"
+            android:id="@+id/tv_runtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Double.toString( movieDetail.runtime )}"
+            app:layout_constraintLeft_toRightOf="@id/tv_release_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+
+
+        <TextView
+            style="@style/MovieDetailStyle"
+            android:id="@+id/tv_vote_average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Double.toString( movieDetail.vote_average )}"
+            app:layout_constraintLeft_toRightOf="@id/tv_runtime"
+            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+
+
 
         <TextView
             style="@style/MovieDetailStyle"
@@ -53,6 +74,23 @@
             android:layout_height="wrap_content"
             android:text="@{movieDetail.overview}"
             app:layout_constraintTop_toBottomOf="@id/tv_release_date" />
+
+
+
+        <LinearLayout
+            style="@style/MovieDetailStyle"
+            android:id="@+id/video_container"
+            app:layout_constraintTop_toBottomOf="@+id/tv_overview"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progressBar_movie_videos"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            </LinearLayout>
 
 
         <ProgressBar

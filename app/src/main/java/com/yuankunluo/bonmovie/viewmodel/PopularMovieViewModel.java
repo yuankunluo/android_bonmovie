@@ -30,6 +30,7 @@ public class PopularMovieViewModel extends ViewModel {
             return;
         }
         mPopularMovies = mRepository.getPopularMovies();
+        loadMoviesAtPage(1);
         Log.d(TAG, "init() :" + mPopularMovies.toString());
     }
 

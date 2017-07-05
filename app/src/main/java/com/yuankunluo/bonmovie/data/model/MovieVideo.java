@@ -13,7 +13,7 @@ public class MovieVideo implements APIResultsWithMovieIdParsable {
 
 
     @PrimaryKey
-    public int id;
+    public String id;
     public String site;
     public String key;
     public String name;

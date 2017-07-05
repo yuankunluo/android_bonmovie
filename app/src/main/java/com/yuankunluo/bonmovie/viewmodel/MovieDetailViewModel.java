@@ -20,21 +20,27 @@ import javax.inject.Inject;
 public class MovieDetailViewModel extends ViewModel {
     private static final String TAG = MovieDetailViewModel.class.getSimpleName();
     private LiveData<MovieDetail> mMovieDetail;
-    private LiveData<List<MovieReview>> mReviews;
-    private LiveData<List<MovieVideo>> mVideos;
+    private LiveData<List<MovieVideo>> mMovieVideos;
+    private int mMovieId;
     @Inject
     MovieDetailRepository movieDetailRepository;
 
     public void init(int movieId){
-        if(mMovieDetail != null){
+        mMovieId = movieId;
+        if(mMovieDetail != null && mMovieVideos != null){
             return;
         }
         mMovieDetail = movieDetailRepository.getMovieDetailByMovieId(movieId);
+        mMovieVideos = movieDetailRepository.getMovieVideosByMovieId(movieId);
         Log.d(TAG, "init " + mMovieDetail.toString());
     }
 
     public LiveData<MovieDetail> getMovieDetail(){
         return mMovieDetail;
+    }
+
+    public LiveData<List<MovieVideo>> getMovieVideos(){
+        return mMovieVideos;
     }
 
 }

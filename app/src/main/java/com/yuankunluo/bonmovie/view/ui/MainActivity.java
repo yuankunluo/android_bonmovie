@@ -3,6 +3,7 @@ package com.yuankunluo.bonmovie.view.ui;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity  implements OnMovieSelectedListener{
+public class MainActivity extends FragmentActivity implements OnMovieSelectedListener{
     private static final String TAG = MainActivity.class.getSimpleName();
     private MovieSelectedBroadcastReceiver mSelectedReceiver;
     private int mSelectedMovieId;
@@ -35,19 +36,21 @@ public class MainActivity extends AppCompatActivity  implements OnMovieSelectedL
         Log.d(TAG, "onCreate");
         BonMovieApp.getAppComponent().inject(this);
         setContentView(R.layout.activity_main);
-        mMoviesListPanel = findViewById(R.id.movies_list_panel);
-        mMovieDetailPanel = findViewById(R.id.movie_detail_panel);
         mDualPanel = mMovieDetailPanel != null;
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean("dualpanel", mDualPanel);
-        editor.commit();
+        editor.apply();
         Log.d(TAG, "dualpanel:" + Boolean.toString(mDualPanel));
         // insert fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        MoviePaggerFragment paggerFragment = new MoviePaggerFragment();
-        fragmentTransaction.add(R.id.movies_list_panel, paggerFragment);
-        fragmentTransaction.commit();
+        if(findViewById(R.id.fragment_container) != null){
+            if(savedInstanceState != null){
+                return;
+            }
+            MoviePaggerFragment paggerFragment = new MoviePaggerFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, paggerFragment).commit();
+        }
+
 
     }
 

@@ -15,6 +15,7 @@ import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 import com.yuankunluo.bonmovie.data.model.PopularMovie;
 import com.yuankunluo.bonmovie.data.repository.MovieShortRepository;
 import com.yuankunluo.bonmovie.services.jobs.FetchMovieDetailFromAPIJobService;
+import com.yuankunluo.bonmovie.services.jobs.FetchMovieVideosFromAPIJobServices;
 import com.yuankunluo.bonmovie.services.jobs.FetchPopularMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.jobs.FetchTopRatedMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.utilities.TheMovieApiUriBuilder;
@@ -46,6 +47,7 @@ public interface AppComponent {
     void inject(FetchPopularMoviesFromApiJobService jobService);
     void inject(FetchTopRatedMoviesFromApiJobService jobService);
     void inject(FetchMovieDetailFromAPIJobService jobService);
+    void inject(FetchMovieVideosFromAPIJobServices jobServices);
     void inject(MovieGridViewHolder holder);
     void inject(MovieDetailFragment fragment);
     void inject(MainActivity mainActivity);

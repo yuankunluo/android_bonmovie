@@ -82,4 +82,12 @@ public class TheMovieApiUriBuilder {
                 .build();
     }
 
+    public Uri getMovieVideosUri(int movieId){
+        Uri base = getBaseUri();
+        return base.buildUpon().appendPath(mContext.getString(R.string.themoviedb_path_movie))
+                .appendPath(Integer.toString(movieId))
+                .appendPath(mContext.getString(R.string.themoviedb_image_path_videos))
+                .build();
+    }
+
 }

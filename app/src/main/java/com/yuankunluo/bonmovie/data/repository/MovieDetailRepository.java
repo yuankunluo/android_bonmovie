@@ -16,6 +16,8 @@ import com.yuankunluo.bonmovie.data.model.MovieDetail;
 import com.yuankunluo.bonmovie.data.model.MovieReview;
 import com.yuankunluo.bonmovie.data.model.MovieVideo;
 import com.yuankunluo.bonmovie.services.jobs.FetchMovieDetailFromAPIJobService;
+import com.yuankunluo.bonmovie.services.jobs.FetchMovieVideosFromAPIJobServices;
+import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -34,17 +36,20 @@ public class MovieDetailRepository {
     MovieReviewDao mReviewDao;
     ExecutorService mExecutor;
     FirebaseJobDispatcher mDispatcher;
+    VolleyWebService mWebService;
 
     @Inject
     public MovieDetailRepository(MovieDetailDao detailDao, MovieVideoDao videoDao,
                                  MovieReviewDao reviewDao, ExecutorService executor,
-                                 FirebaseJobDispatcher dispatcher){
+                                 FirebaseJobDispatcher dispatcher, VolleyWebService webService){
         mDetailDao = detailDao;
         mVideoDao = videoDao;
         mReviewDao = reviewDao;
         mExecutor = executor;
         mDispatcher = dispatcher;
+        mWebService = webService;
     }
+
 
 
     public LiveData<MovieDetail> getMovieDetailByMovieId(int movieId){
@@ -67,13 +72,13 @@ public class MovieDetailRepository {
                         .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
                         .setTrigger(Trigger.executionWindow(0,0))
                         .setRecurring(false)
-                        .setReplaceCurrent(true)
+                        .setReplaceCurrent(false)
                         .setConstraints(Constraint.ON_ANY_NETWORK)
                         .setExtras(jobBundle)
                         .setTag("movie_detail - " + Integer.toString(id))
                         .build();
                 mDispatcher.schedule(fetchMovieDetailJob);
-                Log.d(TAG, "schedule job to fetch moviedetail " +  fetchMovieDetailJob.toString());
+                Log.d(TAG, "schedule job to fetch moviedetail " + id + " " + fetchMovieDetailJob.toString());
             }
         });
     }
@@ -82,10 +87,36 @@ public class MovieDetailRepository {
         return mReviewDao.getMovieReviewsByMovieIdAndPage(id, page);
     }
 
-    LiveData<List<MovieVideo>> getMovieVideosByMovieId(int id){
+    public LiveData<List<MovieVideo>> getMovieVideosByMovieId(int id){
+        refreshMovieVideoByMovieId(id);
         return mVideoDao.getVideosByMovieId(id);
     }
 
+    private void refreshMovieVideoByMovieId(final int movieId){
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                if(mVideoDao.hasVideosForMovieId(movieId)){
+                    Log.d(TAG, "movie video exists: " + movieId);
+                    return;
+                }
+                Bundle jobBundle = new Bundle();
+                jobBundle.putInt("movie_id", movieId);
+                Job fetchMovieDetailJob = mDispatcher.newJobBuilder()
+                        .setService(FetchMovieVideosFromAPIJobServices.class)
+                        .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
+                        .setTrigger(Trigger.executionWindow(0,0))
+                        .setRecurring(false)
+                        .setReplaceCurrent(false)
+                        .setConstraints(Constraint.ON_ANY_NETWORK)
+                        .setExtras(jobBundle)
+                        .setTag("movie_video - " + Integer.toString(movieId))
+                        .build();
+                mDispatcher.schedule(fetchMovieDetailJob);
+                Log.d(TAG, "schedule job to fetch movie videos " + movieId  + " " +  fetchMovieDetailJob.toString());
+            }
+        });
+    }
 
 
 }

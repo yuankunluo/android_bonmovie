@@ -19,10 +19,9 @@ import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.receiver.DBBRefreshBroadcastReceiver;
-import com.yuankunluo.bonmovie.view.adapter.MovieRecyclerViewAdapter;
+import com.yuankunluo.bonmovie.view.adapter.MoviesRecyclerViewAdapter;
 import com.yuankunluo.bonmovie.services.listener.OnSwipeRefreshListener;
 import com.yuankunluo.bonmovie.view.listener.EndlessRecyclerViewScrollListener;
-import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
 import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
 
 /**
@@ -33,7 +32,7 @@ public class TopRatedMovieFragment extends LifecycleFragment implements OnSwipeR
     final String TAG = TopRatedMovieFragment.class.getSimpleName();
     private TopRatedMovieViewModel mViewModel;
     private RecyclerView mRecyclerView;
-    private MovieRecyclerViewAdapter<TopRatedMovie> movieRecyclerViewAdapter;
+    private MoviesRecyclerViewAdapter<TopRatedMovie> movieRecyclerViewAdapter;
     private SwipeRefreshLayout mSwipRefreshContainer;
     private BroadcastReceiver mBroadcastReceiver;
     private EndlessRecyclerViewScrollListener mScrollListener;
@@ -75,7 +74,7 @@ public class TopRatedMovieFragment extends LifecycleFragment implements OnSwipeR
         int columnNumber = getResources().getInteger(R.integer.grid_column);
         mLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        movieRecyclerViewAdapter = new MovieRecyclerViewAdapter<>(getContext());
+        movieRecyclerViewAdapter = new MoviesRecyclerViewAdapter<>(getContext());
         mRecyclerView.setAdapter(movieRecyclerViewAdapter);
         mScrollListener = new EndlessRecyclerViewScrollListener((GridLayoutManager)mLayoutManager,1) {
             @Override

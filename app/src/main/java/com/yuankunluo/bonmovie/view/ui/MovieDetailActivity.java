@@ -1,6 +1,7 @@
 package com.yuankunluo.bonmovie.view.ui;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +11,7 @@ import android.util.Log;
 import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.MovieDetail;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends FragmentActivity {
     private static final String TAG = MovieDetailActivity.class.getSimpleName();
 
     MovieDetailFragment mMovieDetailFragment;

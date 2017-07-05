@@ -1,6 +1,5 @@
 package com.yuankunluo.bonmovie.view.adapter;
 
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -14,7 +13,6 @@ import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.services.utilities.APIResultsWithMovieIdParsable;
 import com.yuankunluo.bonmovie.services.utilities.APIResultsWithPosterPathParsable;
-import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
 import com.yuankunluo.bonmovie.view.viewholder.MovieGridViewHolder;
 
 import java.util.List;
@@ -23,13 +21,13 @@ import java.util.List;
  * Created by yuank on 2017-06-25.
  */
 
-public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridViewHolder>
+public class MoviesRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridViewHolder>
         implements Observer<List<T>>{
-    private final String TAG = MovieRecyclerViewAdapter.class.getSimpleName();
+    private final String TAG = MoviesRecyclerViewAdapter.class.getSimpleName();
     private List<T> mMovies;
     private Context mContext;
 
-    public MovieRecyclerViewAdapter(Context context) {
+    public MoviesRecyclerViewAdapter(Context context) {
         mContext = context;
     }
 
@@ -38,9 +36,7 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
         mMovies = ts;
         if(ts != null){
             Log.d(TAG, "onChanged: " +Integer.toString(ts.size()));
-//            Log.d(TAG, "onChanged: " +ts.toString());
         }
-
         notifyDataSetChanged();
     }
 
@@ -48,7 +44,7 @@ public class MovieRecyclerViewAdapter<T> extends RecyclerView.Adapter<MovieGridV
     @Override
     public MovieGridViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.fragment_movie_item_grid, parent, false);
+        View itemView = inflater.inflate(R.layout.view_holder_movie_item_grid, parent, false);
         MovieGridViewHolder viewHolder = new MovieGridViewHolder(itemView, mContext);
         // inject ImageViewHolder
         BonMovieApp.getAppComponent().inject(viewHolder);

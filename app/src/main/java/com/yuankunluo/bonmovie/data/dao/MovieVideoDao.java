@@ -23,6 +23,9 @@ public interface MovieVideoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovieVideos(MovieVideo... videos);
 
+    @Query("SELECT EXISTS (SELECT 1 FROM MovieVideo WHERE movie_id = :movieId)")
+    boolean hasVideosForMovieId(int movieId);
+
     @Query("DELETE FROM MovieVideo WHERE movie_id =:id")
     void deleteMovieVideosByMovieId(int id);
 
