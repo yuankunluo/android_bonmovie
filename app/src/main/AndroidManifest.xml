@@ -37,30 +37,6 @@
             </intent-filter>
         </service>
 
-        <service
-            android:name=".services.jobs.FetchMovieDetailFromAPIJobService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
-
-        <service
-            android:name=".services.jobs.FetchMovieVideosFromAPIJobServices"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
-
-
-        <service
-            android:name=".services.jobs.FetchMovieReviewsFromAPIJobServices"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
-            </intent-filter>
-        </service>
 
         <receiver
             android:name=".services.receiver.DBBRefreshBroadcastReceiver"

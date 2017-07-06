@@ -1,24 +1,28 @@
 package com.yuankunluo.bonmovie.data.repository;
 
 import android.arch.lifecycle.LiveData;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.firebase.jobdispatcher.Constraint;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
-import com.firebase.jobdispatcher.Job;
-import com.firebase.jobdispatcher.Lifetime;
-import com.firebase.jobdispatcher.Trigger;
+
 import com.yuankunluo.bonmovie.data.dao.MovieDetailDao;
 import com.yuankunluo.bonmovie.data.dao.MovieReviewDao;
 import com.yuankunluo.bonmovie.data.dao.MovieVideoDao;
 import com.yuankunluo.bonmovie.data.model.MovieDetail;
 import com.yuankunluo.bonmovie.data.model.MovieReview;
 import com.yuankunluo.bonmovie.data.model.MovieVideo;
-import com.yuankunluo.bonmovie.services.jobs.FetchMovieDetailFromAPIJobService;
-import com.yuankunluo.bonmovie.services.jobs.FetchMovieReviewsFromAPIJobServices;
-import com.yuankunluo.bonmovie.services.jobs.FetchMovieVideosFromAPIJobServices;
+
+import com.yuankunluo.bonmovie.services.utilities.TheMovieApiJsonResultsParser;
+import com.yuankunluo.bonmovie.services.utilities.TheMovieApiUriBuilder;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
+
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -38,17 +42,21 @@ public class MovieDetailRepository {
     ExecutorService mExecutor;
     FirebaseJobDispatcher mDispatcher;
     VolleyWebService mWebService;
+    TheMovieApiUriBuilder mApiUriBuilder;
+    TheMovieApiJsonResultsParser mParser;
 
     @Inject
     public MovieDetailRepository(MovieDetailDao detailDao, MovieVideoDao videoDao,
                                  MovieReviewDao reviewDao, ExecutorService executor,
-                                 FirebaseJobDispatcher dispatcher, VolleyWebService webService){
+                                 TheMovieApiUriBuilder uriBuilder,
+                                 TheMovieApiJsonResultsParser parser,VolleyWebService webService){
         mDetailDao = detailDao;
         mVideoDao = videoDao;
         mReviewDao = reviewDao;
         mExecutor = executor;
-        mDispatcher = dispatcher;
         mWebService = webService;
+        mApiUriBuilder = uriBuilder;
+        mParser = parser;
     }
 
 
@@ -66,20 +74,36 @@ public class MovieDetailRepository {
                     Log.d(TAG, "refreshMovieDetailById: MovieDetailActivity exists " + Integer.toString(id));
                     return;
                 }
-                Bundle jobBundle = new Bundle();
-                jobBundle.putInt("movie_id", id);
-                Job fetchMovieDetailJob = mDispatcher.newJobBuilder()
-                        .setService(FetchMovieDetailFromAPIJobService.class)
-                        .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
-                        .setTrigger(Trigger.executionWindow(0,0))
-                        .setRecurring(false)
-                        .setReplaceCurrent(false)
-                        .setConstraints(Constraint.ON_ANY_NETWORK)
-                        .setExtras(jobBundle)
-                        .setTag("movie_detail - " + Integer.toString(id))
-                        .build();
-                mDispatcher.schedule(fetchMovieDetailJob);
-                Log.d(TAG, "schedule job to fetch moviedetail " + id + " " + fetchMovieDetailJob.toString());
+
+                String url = mApiUriBuilder.getMovieDetailByMovieId(id).toString();
+                Log.d(TAG, "refreshMovieDetailById url: " + url );
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                final MovieDetail movieDetail = mParser.parseResponseDirectAsObject(response, MovieDetail.class);
+                                // save movie detail into db
+                                mExecutor.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mDetailDao.insertMovieDetail(movieDetail);
+                                        Log.d(TAG, "insert movie detail into db " + id);
+                                    }
+                                });
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e(TAG, "onErrorResponse");
+                                error.printStackTrace();
+                            }
+                        }
+                );
+                mWebService.addToRequestQueue(request);
+
+                Log.d(TAG, "schedule webservice to fetch moviedetail " + id);
             }
         });
     }
@@ -101,20 +125,32 @@ public class MovieDetailRepository {
                     Log.d(TAG, "movie video exists: " + movieId);
                     return;
                 }
-                Bundle jobBundle = new Bundle();
-                jobBundle.putInt("movie_id", movieId);
-                Job fetchMovieDetailJob = mDispatcher.newJobBuilder()
-                        .setService(FetchMovieVideosFromAPIJobServices.class)
-                        .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
-                        .setTrigger(Trigger.executionWindow(0,0))
-                        .setRecurring(false)
-                        .setReplaceCurrent(false)
-                        .setConstraints(Constraint.ON_ANY_NETWORK)
-                        .setExtras(jobBundle)
-                        .setTag("movie_video - " + Integer.toString(movieId))
-                        .build();
-                mDispatcher.schedule(fetchMovieDetailJob);
-                Log.d(TAG, "schedule job to fetch movie videos " + movieId  + " " +  fetchMovieDetailJob.toString());
+                String url = mApiUriBuilder.getMovieVideosUri(movieId).toString();
+                Log.d(TAG, "onStartJob start job with URL: " + url);
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                final MovieVideo[] movieVideos = mParser.parseResponseResultsToArray(response, MovieVideo.class, MovieVideo[].class);
+                                mExecutor.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mVideoDao.insertMovieVideos(movieVideos);
+                                        Log.d(TAG, "insert videos into DB: " + movieVideos.length);
+                                    }
+                                });
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e(TAG, "onErrorResponse");
+                                error.printStackTrace();
+                            }
+                        }
+                );
+                mWebService.addToRequestQueue(request);
+                Log.d(TAG, "schedule webservice to fetch movie videos " + movieId );
             }
         });
     }
@@ -131,21 +167,32 @@ public class MovieDetailRepository {
                 if(mReviewDao.hasReiewsAtPageByMovieId(movieId, page)){
                     return;
                 }
-                Bundle jobBundle = new Bundle();
-                jobBundle.putInt("movie_id", movieId);
-                jobBundle.putInt("page",page);
-                Job fetchMovieReviewsJob = mDispatcher.newJobBuilder()
-                        .setService(FetchMovieReviewsFromAPIJobServices.class)
-                        .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
-                        .setTrigger(Trigger.executionWindow(0,0))
-                        .setRecurring(false)
-                        .setReplaceCurrent(false)
-                        .setConstraints(Constraint.ON_ANY_NETWORK)
-                        .setExtras(jobBundle)
-                        .setTag("movie_reviews-"+movieId+"-"+page)
-                        .build();
-                mDispatcher.schedule(fetchMovieReviewsJob);
-                Log.d(TAG, "schedule job to fetch movie reviews " + movieId  + " page " + page + " " +  fetchMovieReviewsJob.toString());
+                String url = mApiUriBuilder.getMovieReviewsForMovieIdAtPage(movieId, page).toString();
+                Log.d(TAG, "onStartJob start job with URL: " + url);
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                final MovieReview[] reviews = mParser.parseResponseResultsToArray(response, MovieReview.class, MovieReview[].class);
+                                mExecutor.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mReviewDao.insertReviews(reviews);
+                                        Log.d(TAG, "insert reviews into DB: " + reviews.length);
+                                    }
+                                });
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e(TAG, "onErrorResponse");
+                                error.printStackTrace();
+                            }
+                        }
+                );
+                mWebService.addToRequestQueue(request);
+                Log.d(TAG, "schedule webservice to fetch movie reviews " + movieId  + " page " + page);
             }
         });
     }
