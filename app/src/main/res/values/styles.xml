@@ -15,4 +15,13 @@
     </style>
 
 
+    <style name="MovieReviewAuthorStyle" parent="MovieDetailStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NewLine" parent="MovieDetailStyle">
+        <item name="android:height">1dp</item>
+        <item name="android:background">@color/colorGrey</item>
+    </style>
+
 </resources>

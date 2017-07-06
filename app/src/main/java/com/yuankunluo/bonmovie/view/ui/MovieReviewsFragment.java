@@ -9,10 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
 import com.yuankunluo.bonmovie.data.model.MovieReview;
+import com.yuankunluo.bonmovie.view.widget.MovieReviewItemView;
 import com.yuankunluo.bonmovie.viewmodel.MovieReviewsViewModel;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class MovieReviewsFragment extends LifecycleFragment {
 
     private MovieReviewsViewModel mMovieReviewsViewModel;
     private int mMovieId;
-    private View mRootView;
+    private LinearLayout mRootView;
 
 
     @Override
@@ -44,7 +46,9 @@ public class MovieReviewsFragment extends LifecycleFragment {
                 if(movieReviews!=null) {
                     Log.d(TAG, "onChanged: " + movieReviews.size());
                     for(MovieReview r : movieReviews){
-
+                        MovieReviewItemView reviewItemView = new MovieReviewItemView(getContext());
+                        reviewItemView.setMovieReview(r);
+                        mRootView.addView(reviewItemView);
                     }
                 }
             }
@@ -54,7 +58,8 @@ public class MovieReviewsFragment extends LifecycleFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.fragment_movie_reviews,container,false);
+        View v  = inflater.inflate(R.layout.fragment_movie_reviews,container,false);
+        mRootView = v.findViewById(R.id.reviews_container);
         return mRootView;
     }
 }
