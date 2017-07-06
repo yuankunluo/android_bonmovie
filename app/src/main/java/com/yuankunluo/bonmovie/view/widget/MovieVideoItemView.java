@@ -1,13 +1,17 @@
 package com.yuankunluo.bonmovie.view.widget;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yuankunluo.bonmovie.R;
-import com.yuankunluo.bonmovie.data.model.MovieReview;
+import com.yuankunluo.bonmovie.data.model.MovieVideo;
 
 /**
  * Created by yuank on 2017-07-04.
@@ -18,8 +22,11 @@ public class MovieVideoItemView extends ConstraintLayout {
 
     private static final String TAG = MovieVideoItemView.class.getSimpleName();
     private View mRootView;
-    private TextView mTextViewAuthor;
-    private TextView mTextViewContent;
+    private TextView mTextViewName;
+    private TextView mTextViewType;
+    private TextView mTextViewSite;
+    private ImageView mButton;
+    private MovieVideo mMovieVideo;
     private Context mContext;
 
 
@@ -38,15 +45,31 @@ public class MovieVideoItemView extends ConstraintLayout {
 
 
     private void init(Context context){
-        mRootView = inflate(context, R.layout.view_movie_review_item, this);
-        mTextViewAuthor = mRootView.findViewById(R.id.tv_review_author);
-        mTextViewContent = mRootView.findViewById(R.id.tv_review_content);
-
+        mRootView = inflate(context, R.layout.view_movie_video_item, this);
+        mTextViewName = mRootView.findViewById(R.id.tv_video_name);
+        mTextViewType = mRootView.findViewById(R.id.tv_video_type);
+        mButton = mRootView.findViewById(R.id.bt_play_video);
+        mTextViewSite = mRootView.findViewById(R.id.tv_video_site);
+        mRootView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mMovieVideo != null) {
+                    Log.d(TAG, "onClick" + mMovieVideo.key);
+                    mContext.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://www.youtube.com/watch?v="+mMovieVideo.key)));
+                    Log.d(TAG, "onClick start new activity youtube " + mMovieVideo.key );
+                }
+            }
+        });
     }
 
-    public void setMovieReview(final MovieReview review){
-        mTextViewAuthor.setText(review.author);
-        mTextViewContent.setText(review.content);
+    public void setMovieVideo(final MovieVideo video){
+        if(video != null) {
+            mMovieVideo = video;
+            mTextViewName.setText(video.name);
+            mTextViewType.setText(video.type);
+            mTextViewSite.setText(video.site);
+        }
     }
 
 }
