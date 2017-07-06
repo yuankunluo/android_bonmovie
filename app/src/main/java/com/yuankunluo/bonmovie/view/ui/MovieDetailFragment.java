@@ -138,7 +138,9 @@ public class MovieDetailFragment extends LifecycleFragment {
         mFavoriteButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mUserFavoriteViewModel.insertMovie(new UserFavoriteMovie(mMovieId, mMovieDetail.getPosterImageUrl()));
+                if (mMovieDetail != null) {
+                    mUserFavoriteViewModel.insertMovie(new UserFavoriteMovie(mMovieId, mMovieDetail.getPosterImageUrl()));
+                }
             }
         });
         mFavoriteButtonRemove = root.findViewById(R.id.bt_favorite_remove);
@@ -146,7 +148,9 @@ public class MovieDetailFragment extends LifecycleFragment {
         mFavoriteButtonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mUserFavoriteViewModel.deleteMovieById(mMovieId);
+                if(mMovieDetail != null) {
+                    mUserFavoriteViewModel.deleteMovieById(mMovieId);
+                }
             }
         });
         mVideosContainer = root.findViewById(R.id.video_container);
