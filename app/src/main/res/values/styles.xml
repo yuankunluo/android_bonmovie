@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Base.Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -19,9 +19,5 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="NewLine" parent="MovieDetailStyle">
-        <item name="android:height">1dp</item>
-        <item name="android:background">@color/colorGrey</item>
-    </style>
 
 </resources>

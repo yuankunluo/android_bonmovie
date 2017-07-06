@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="movieDetail"
             type="com.yuankunluo.bonmovie.data.model.MovieDetail" />
@@ -15,8 +14,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
 
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         tools:ignore="ScrollViewSize">
@@ -29,11 +28,11 @@
 
 
         <TextView
+            style="@style/MovieDetailStyle"
             android:id="@+id/tv_movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{movieDetail.original_title}"
-            style="@style/MovieDetailStyle"
             android:textSize="@dimen/movie_detail_title_text_size"
             app:layout_constraintTop_toBottomOf="@+id/imv_movie_detail_header_poster" />
 
@@ -78,7 +77,6 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
@@ -89,7 +87,6 @@
 
 
         <LinearLayout
-            style="@style/MovieDetailStyle"
             android:id="@+id/video_container"
             app:layout_constraintTop_toBottomOf="@+id/tv_overview"
             android:orientation="vertical"

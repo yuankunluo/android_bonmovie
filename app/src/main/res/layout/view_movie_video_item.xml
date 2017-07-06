@@ -4,14 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        style="@style/MovieDetailStyle"
         android:id="@+id/tv_video_name"
         android:layout_width="wrap_content"
         app:layout_constraintLeft_toRightOf="@+id/bt_play_video"
         android:layout_height="wrap_content" />
 
     <TextView
-        style="@style/MovieDetailStyle"
         android:id="@+id/tv_video_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +17,6 @@
         app:layout_constraintLeft_toLeftOf="@id/tv_video_name"/>
 
     <TextView
-        style="@style/MovieDetailStyle"
         android:id="@+id/tv_video_site"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +24,6 @@
         app:layout_constraintLeft_toRightOf="@id/tv_video_type"/>
 
     <ImageButton
-        style="@style/MovieDetailStyle"
         android:id="@+id/bt_play_video"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
