@@ -1,6 +1,8 @@
 package com.yuankunluo.bonmovie.view.widget;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -23,18 +25,22 @@ public class MovieVideoItemView extends ConstraintLayout {
     private View mRootView;
     private TextView mTextViewName;
     private TextView mTextViewType;
+    private TextView mTextViewSite;
     private ImageView mButton;
     private MovieVideo mMovieVideo;
+    private Context mContext;
 
 
     public MovieVideoItemView(Context context){
         super(context);
         init(context);
+        mContext = context;
     }
 
     public MovieVideoItemView(Context context, AttributeSet attrs){
         super(context, attrs);
         init(context);
+        mContext = context;
     }
 
 
@@ -44,11 +50,15 @@ public class MovieVideoItemView extends ConstraintLayout {
         mTextViewName = mRootView.findViewById(R.id.tv_video_name);
         mTextViewType = mRootView.findViewById(R.id.tv_video_type);
         mButton = mRootView.findViewById(R.id.bt_play_video);
+        mTextViewSite = mRootView.findViewById(R.id.tv_video_site);
         mRootView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(mMovieVideo != null) {
                     Log.d(TAG, "onClick" + mMovieVideo.key);
+                    mContext.startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("http://www.youtube.com/watch?v="+mMovieVideo.key)));
+                    Log.d(TAG, "onClick start new activity youtube " + mMovieVideo.key );
                 }
             }
         });
@@ -58,6 +68,7 @@ public class MovieVideoItemView extends ConstraintLayout {
         mMovieVideo = video;
         mTextViewName.setText(video.name);
         mTextViewType.setText(video.type);
+        mTextViewSite.setText(video.site);
     }
 
 }
