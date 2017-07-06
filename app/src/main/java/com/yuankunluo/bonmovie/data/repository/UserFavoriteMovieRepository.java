@@ -51,7 +51,7 @@ public class UserFavoriteMovieRepository {
         });
     }
 
-    LiveData<Boolean> hasMovieById(final int movieId){
+    public LiveData<Boolean> hasMovieById(final int movieId){
         return mDao.hasMoviesByMovieId(movieId);
     }
 

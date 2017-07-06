@@ -32,5 +32,17 @@ public class UserFavoriteMovieViewModel extends ViewModel {
         return mMovies;
     }
 
+    public void insertMovie(UserFavoriteMovie movie){
+        mRepository.insertMovie(movie);
+    }
+
+    public void deleteMovieById(int id){
+        mRepository.deleteMovieByMovieId(id);
+    }
+
+    public LiveData<Boolean> hasMovieByID(int id){
+        return mRepository.hasMovieById(id);
+    }
+
 
 }

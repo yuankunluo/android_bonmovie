@@ -60,6 +60,7 @@ public class DataBaseModule {
     MovieReviewDao provideMovieReviewDao(BonMovieDatabase db){
         return db.movieReviewDao();
     }
+
     @Provides
     MovieVideoDao provideMovieVideoDao(BonMovieDatabase db){
         return db.movieVideoDao();

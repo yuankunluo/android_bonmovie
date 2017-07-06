@@ -13,6 +13,7 @@ import com.yuankunluo.bonmovie.dagger2.module.SharedPreferencesModule;
 import com.yuankunluo.bonmovie.dagger2.module.UtiltyModule;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 import com.yuankunluo.bonmovie.data.repository.MovieShortRepository;
+import com.yuankunluo.bonmovie.data.repository.UserFavoriteMovieRepository;
 import com.yuankunluo.bonmovie.services.jobs.FetchPopularMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.jobs.FetchTopRatedMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.utilities.TheMovieApiUriBuilder;
@@ -40,21 +41,28 @@ import dagger.Component;
         RepositoryModule.class, ServiceModule.class, SharedPreferencesModule.class})
 public interface AppComponent {
     void inject(BonMovieApp app);
+    // ViewModels
     void inject(PopularMovieViewModel viewModel);
     void inject(TopRatedMovieViewModel viewModel);
     void inject(MovieDetailViewModel viewModel);
     void inject(MovieReviewsViewModel viewModel);
     void inject(UserFavoriteMovieViewModel viewModel);
+    // Jobs
     void inject(FetchPopularMoviesFromApiJobService jobService);
     void inject(FetchTopRatedMoviesFromApiJobService jobService);
+    // Views
     void inject(MovieGridViewHolder holder);
     void inject(MovieDetailFragment fragment);
     void inject(MainActivity mainActivity);
     void inject(TopRatedMovieFragment fragment);
     void inject(PopularMovieFragment fragment);
+    // Repository
     MovieShortRepository getMovieRepository();
+    UserFavoriteMovieRepository getUserFavoriteRepository();
+    // Database
     BonMovieDatabase getDatabase();
     SharedPreferences getSharedPreference();
+    // Services
     VolleyWebService getWebService();
     TheMovieApiUriBuilder getApiUriBuilder();
     FirebaseJobDispatcher getFirebaseJobDispatcher();

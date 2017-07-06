@@ -10,6 +10,8 @@
     <string name="no_records">No Records</string>
     <string name="play_video">Play Video</string>
     <string name="ui_runtime">Runtime: </string>
-    <style name="ui_rating">Rating: </style>
+    <string name="ui_rating">Rating: </string>
+    <string name="ui_add_to_fav">Add To My Favorites</string>
+    <string name="ui_remove_from_fav">Remove From My Favorites</string>
 
 </resources>
