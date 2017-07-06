@@ -36,14 +36,13 @@ import javax.inject.Inject;
 public class MovieDetailRepository {
     private static final String TAG = MovieDetailRepository.class.getSimpleName();
 
-    MovieDetailDao mDetailDao;
-    MovieVideoDao mVideoDao;
-    MovieReviewDao mReviewDao;
-    ExecutorService mExecutor;
-    FirebaseJobDispatcher mDispatcher;
-    VolleyWebService mWebService;
-    TheMovieApiUriBuilder mApiUriBuilder;
-    TheMovieApiJsonResultsParser mParser;
+    private MovieDetailDao mDetailDao;
+    private MovieVideoDao mVideoDao;
+    private MovieReviewDao mReviewDao;
+    private ExecutorService mExecutor;
+    private VolleyWebService mWebService;
+    private TheMovieApiUriBuilder mApiUriBuilder;
+    private TheMovieApiJsonResultsParser mParser;
 
     @Inject
     public MovieDetailRepository(MovieDetailDao detailDao, MovieVideoDao videoDao,
@@ -76,7 +75,7 @@ public class MovieDetailRepository {
                 }
 
                 String url = mApiUriBuilder.getMovieDetailByMovieId(id).toString();
-                Log.d(TAG, "refreshMovieDetailById url: " + url );
+                Log.d(TAG, "refreshMovieDetailById with url: " + url );
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -126,7 +125,7 @@ public class MovieDetailRepository {
                     return;
                 }
                 String url = mApiUriBuilder.getMovieVideosUri(movieId).toString();
-                Log.d(TAG, "onStartJob start job with URL: " + url);
+                Log.d(TAG, "refreshMovieVideoByMovieId with URL: " + url);
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -168,7 +167,7 @@ public class MovieDetailRepository {
                     return;
                 }
                 String url = mApiUriBuilder.getMovieReviewsForMovieIdAtPage(movieId, page).toString();
-                Log.d(TAG, "onStartJob start job with URL: " + url);
+                Log.d(TAG, "refreshMovieReviewsAtPageByMovieId with URL: " + url);
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                         new Response.Listener<JSONObject>() {
                             @Override
