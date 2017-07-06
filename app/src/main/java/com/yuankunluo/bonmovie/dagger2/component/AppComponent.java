@@ -26,6 +26,7 @@ import com.yuankunluo.bonmovie.viewmodel.MovieDetailViewModel;
 import com.yuankunluo.bonmovie.viewmodel.MovieReviewsViewModel;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
 import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
+import com.yuankunluo.bonmovie.viewmodel.UserFavoriteMovieViewModel;
 
 import javax.inject.Singleton;
 
@@ -43,6 +44,7 @@ public interface AppComponent {
     void inject(TopRatedMovieViewModel viewModel);
     void inject(MovieDetailViewModel viewModel);
     void inject(MovieReviewsViewModel viewModel);
+    void inject(UserFavoriteMovieViewModel viewModel);
     void inject(FetchPopularMoviesFromApiJobService jobService);
     void inject(FetchTopRatedMoviesFromApiJobService jobService);
     void inject(MovieGridViewHolder holder);

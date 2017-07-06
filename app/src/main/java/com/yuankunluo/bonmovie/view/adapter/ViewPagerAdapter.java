@@ -10,6 +10,7 @@ import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
 import com.yuankunluo.bonmovie.view.ui.MovieDetailFragment;
 import com.yuankunluo.bonmovie.view.ui.PopularMovieFragment;
 import com.yuankunluo.bonmovie.view.ui.TopRatedMovieFragment;
+import com.yuankunluo.bonmovie.view.ui.UserFavoriteMovieFragment;
 
 /**
  * Created by yuank on 2017-06-22.
@@ -33,7 +34,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 1:
                 return new TopRatedMovieFragment();
             case 2:
-                return new TopRatedMovieFragment();
+                return new UserFavoriteMovieFragment();
             default:
                 return null;
         }
