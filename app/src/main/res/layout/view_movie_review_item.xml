@@ -5,7 +5,7 @@
 
 
     <TextView
-        style="@style/MovieReviewAuthorStyle"
+        style="@style/MovieReviewAuthorTitleStyle"
         android:id="@+id/tv_review_author"
         android:layout_width="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"

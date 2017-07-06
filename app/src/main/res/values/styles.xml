@@ -15,7 +15,12 @@
     </style>
 
 
-    <style name="MovieReviewAuthorStyle" parent="MovieDetailStyle">
+    <style name="MovieDetailTitleStyle" parent="MovieDetailStyle">
+        <item name="android:textSize">@dimen/movie_detail_title_text_size</item>
+    </style>
+
+
+    <style name="MovieReviewAuthorTitleStyle" parent="MovieDetailStyle">
         <item name="android:textStyle">bold</item>
     </style>
 
