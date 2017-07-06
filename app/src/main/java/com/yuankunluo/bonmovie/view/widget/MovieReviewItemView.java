@@ -13,23 +13,23 @@ import com.yuankunluo.bonmovie.data.model.MovieReview;
  * Created by yuank on 2017-07-04.
  */
 
-public class MovieVideoItemView extends ConstraintLayout {
+public class MovieReviewItemView extends ConstraintLayout {
 
 
-    private static final String TAG = MovieVideoItemView.class.getSimpleName();
+    private static final String TAG = MovieReviewItemView.class.getSimpleName();
     private View mRootView;
     private TextView mTextViewAuthor;
     private TextView mTextViewContent;
     private Context mContext;
 
 
-    public MovieVideoItemView(Context context){
+    public MovieReviewItemView(Context context){
         super(context);
         init(context);
         mContext = context;
     }
 
-    public MovieVideoItemView(Context context, AttributeSet attrs){
+    public MovieReviewItemView(Context context, AttributeSet attrs){
         super(context, attrs);
         init(context);
         mContext = context;

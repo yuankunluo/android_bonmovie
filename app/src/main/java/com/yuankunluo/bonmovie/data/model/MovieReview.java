@@ -15,7 +15,7 @@ public class MovieReview implements APIResultsWithMovieIdParsable, APIResultsWit
     public int id_in_page;
     public int total_pages;
     @PrimaryKey
-    public int id;
+    public String id;
     public String author;
     public String content;
     public String url;

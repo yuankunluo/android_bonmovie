@@ -16,6 +16,7 @@ import com.yuankunluo.bonmovie.data.model.MovieDetail;
 import com.yuankunluo.bonmovie.data.model.MovieReview;
 import com.yuankunluo.bonmovie.data.model.MovieVideo;
 import com.yuankunluo.bonmovie.services.jobs.FetchMovieDetailFromAPIJobService;
+import com.yuankunluo.bonmovie.services.jobs.FetchMovieReviewsFromAPIJobServices;
 import com.yuankunluo.bonmovie.services.jobs.FetchMovieVideosFromAPIJobServices;
 import com.yuankunluo.bonmovie.services.webservice.VolleyWebService;
 
@@ -114,6 +115,37 @@ public class MovieDetailRepository {
                         .build();
                 mDispatcher.schedule(fetchMovieDetailJob);
                 Log.d(TAG, "schedule job to fetch movie videos " + movieId  + " " +  fetchMovieDetailJob.toString());
+            }
+        });
+    }
+
+    public LiveData<List<MovieReview>> getMovieReviewsAtPageByMovieId(int movieId, int page){
+        refreshMovieReviewsAtPageByMovieId(movieId, page);
+        return mReviewDao.getMovieReviewsByMovieIdAndPage(movieId, page);
+    }
+
+    public void refreshMovieReviewsAtPageByMovieId(final int movieId, final int page){
+        mExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                if(mReviewDao.hasReiewsAtPageByMovieId(movieId, page)){
+                    return;
+                }
+                Bundle jobBundle = new Bundle();
+                jobBundle.putInt("movie_id", movieId);
+                jobBundle.putInt("page",page);
+                Job fetchMovieReviewsJob = mDispatcher.newJobBuilder()
+                        .setService(FetchMovieReviewsFromAPIJobServices.class)
+                        .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
+                        .setTrigger(Trigger.executionWindow(0,0))
+                        .setRecurring(false)
+                        .setReplaceCurrent(false)
+                        .setConstraints(Constraint.ON_ANY_NETWORK)
+                        .setExtras(jobBundle)
+                        .setTag("movie_reviews-"+movieId+"-"+page)
+                        .build();
+                mDispatcher.schedule(fetchMovieReviewsJob);
+                Log.d(TAG, "schedule job to fetch movie reviews " + movieId  + " page " + page + " " +  fetchMovieReviewsJob.toString());
             }
         });
     }

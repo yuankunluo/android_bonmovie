@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -41,6 +40,7 @@ public class MovieDetailFragment extends LifecycleFragment {
     private ProgressBar mProgressBar;
     private ProgressBar mProgressBarMovieVides;
     private LinearLayout mVideosContainer;
+    private MovieReviewsFragment movieReviewsFragment;
 
 
     private int mMovieId;
@@ -53,6 +53,10 @@ public class MovieDetailFragment extends LifecycleFragment {
         super.onCreate(savedInstanceState);
         BonMovieApp.getAppComponent().inject(this);
         mMovieId = getArguments().getInt("movie_id");
+        movieReviewsFragment = new MovieReviewsFragment();
+        Bundle reviewBundle = new Bundle();
+        reviewBundle.putInt("movie_id", mMovieId);
+        movieReviewsFragment.setArguments(reviewBundle);
     }
 
     @Override
@@ -104,6 +108,9 @@ public class MovieDetailFragment extends LifecycleFragment {
         mProgressBar.setVisibility(View.VISIBLE);
         mProgressBarMovieVides = root.findViewById(R.id.progressBar_movie_videos);
         mProgressBarMovieVides.setVisibility(View.VISIBLE);
+        getFragmentManager().beginTransaction().add(
+                R.id.reviews_container, movieReviewsFragment,"reviews-fragment"
+        ).commit();
         return root;
     }
 

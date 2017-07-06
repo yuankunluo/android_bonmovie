@@ -90,4 +90,14 @@ public class TheMovieApiUriBuilder {
                 .build();
     }
 
+
+    public Uri getMovieReviewsForMovieIdAtPage(int movieId, int page){
+        Uri base = getBaseUri();
+        return base.buildUpon().appendPath(mContext.getString(R.string.themoviedb_path_movie))
+                .appendPath(Integer.toString(movieId))
+                .appendPath(mContext.getString(R.string.themoviedb_path_reviews))
+                .build();
+    }
+
+
 }

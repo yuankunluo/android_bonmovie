@@ -42,8 +42,6 @@ public class TheMovieApiJsonResultsParser {
                 if(APIResultsWithPagesParsable.class.isAssignableFrom(klass)){
                     int totalPages = response.getInt("total_pages");
                     int page = response.getInt("page");
-                    object.put("id_in_page", i+1);
-                    object.put("total_pages", totalPages);
                     object.put("page", page);
                 }
                 if(APIResultsWithPosterPathParsable.class.isAssignableFrom(klass)){

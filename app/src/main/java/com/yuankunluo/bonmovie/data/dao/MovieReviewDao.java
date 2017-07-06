@@ -23,4 +23,7 @@ public interface MovieReviewDao {
 
     @Query("DELETE FROM MovieReview WHERE movie_id = :id")
     void deleteReviewsByMovieId(int id);
+
+    @Query("SELECT EXISTS(SELECT 1 FROM MovieReview WHERE movie_id = :movieId AND page = :page)")
+    boolean hasReiewsAtPageByMovieId(int movieId, int page);
 }
