@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="movieDetail"
             type="com.yuankunluo.bonmovie.data.model.MovieDetail" />
@@ -14,64 +13,133 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <android.support.constraint.ConstraintLayout
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            tools:ignore="ScrollViewSize">
 
-
-        <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/imv_movie_detail_header_poster"
-            android:layout_width="@dimen/movie_detail_header_image_width"
-            android:layout_height="@dimen/movie_detail_header_image_height"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            />
-
-
-        <TextView
-            style="@style/MovieDetailStyle"
-            android:id="@+id/tv_movie_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{movieDetail.original_title}"
-            android:textSize="@dimen/movie_detail_title_text_size"
-            app:layout_constraintLeft_toRightOf="@+id/imv_movie_detail_header_poster" />
-
-        <TextView
-            style="@style/MovieDetailStyle"
-            android:id="@+id/tv_release_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{movieDetail.release_date}"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_movie_title"
-            app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+            <com.android.volley.toolbox.NetworkImageView
+                style="@style/MovieDetailStyle"
+                android:id="@+id/imv_movie_detail_header_poster"
+                android:layout_width="@dimen/movie_detail_header_image_width"
+                android:layout_height="@dimen/movie_detail_header_image_height"
+                app:layout_constraintTop_toBottomOf="@id/tv_movie_title"
+                app:layout_constraintLeft_toLeftOf="@id/tv_movie_title"
+                android:scaleType="centerCrop" />
 
 
-        <TextView
-            style="@style/MovieDetailStyle"
-            android:id="@+id/tv_overview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{movieDetail.overview}"
-            app:layout_constraintLeft_toLeftOf="@+id/tv_movie_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_release_date" />
+            <TextView
+                style="@style/MovieDetailTitleStyle"
+                android:id="@+id/tv_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetail.original_title}"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
+            <TextView
+                style="@style/MovieDetailStyle"
+                android:id="@+id/tv_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetail.release_date}"
+                app:layout_constraintLeft_toRightOf="@id/imv_movie_detail_header_poster"
+                app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+
+            <TextView
+                style="@style/MovieDetailStyle"
+                android:id="@+id/tv_runtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Double.toString( movieDetail.runtime )}"
+                app:layout_constraintLeft_toRightOf="@id/tv_release_date"
+                app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
 
 
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                style="@style/MovieDetailStyle"
+                android:id="@+id/tv_vote_average"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{Double.toString( movieDetail.vote_average )}"
+                app:layout_constraintLeft_toRightOf="@id/tv_runtime"
+                app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+
+
+
+            <TextView
+                style="@style/MovieDetailStyle"
+                android:id="@+id/tv_overview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{movieDetail.overview}"
+                app:layout_constraintLeft_toLeftOf="@id/imv_movie_detail_header_poster"
+                app:layout_constraintTop_toBottomOf="@id/imv_movie_detail_header_poster" />
+
+
+            <FrameLayout
+                style="@style/MovieDetailStyle"
+                android:id="@+id/button_container"
+                app:layout_constraintTop_toBottomOf="@id/tv_release_date"
+                app:layout_constraintLeft_toLeftOf="@id/tv_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:enabled="false"
+                    android:id="@+id/bt_favorite_add"
+                    android:text="@string/ui_add_to_fav"
+                    android:drawableStart="@drawable/ic_favorite_border_black_48px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:enabled="false"
+                    android:id="@+id/bt_favorite_remove"
+                    android:text="@string/ui_remove_from_fav"
+                    android:drawableStart="@drawable/ic_favorite_black_48px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/video_container"
+                app:layout_constraintTop_toBottomOf="@+id/tv_overview"
+                app:layout_constraintLeft_toLeftOf="@id/tv_overview"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:id="@+id/progressBar_movie_videos"
+                    android:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/reviews_container"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/video_container"
+                app:layout_constraintLeft_toLeftOf="@id/video_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </android.support.constraint.ConstraintLayout>
+
     </ScrollView>
 </layout>
