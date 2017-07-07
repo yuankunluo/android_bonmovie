@@ -148,9 +148,7 @@ public class MovieDetailFragment extends LifecycleFragment {
         mFavoriteButtonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(mMovieDetail != null) {
-                    mUserFavoriteViewModel.deleteMovieById(mMovieId);
-                }
+                mUserFavoriteViewModel.deleteMovieById(mMovieId);
             }
         });
         mVideosContainer = root.findViewById(R.id.video_container);

@@ -3,17 +3,14 @@ package com.yuankunluo.bonmovie.view.ui;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
-import com.yuankunluo.bonmovie.data.model.MovieDetail;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.receiver.MovieSelectedBroadcastReceiver;
 import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
@@ -25,33 +22,26 @@ public class MainActivity extends FragmentActivity implements OnMovieSelectedLis
     private MovieSelectedBroadcastReceiver mSelectedReceiver;
     private int mSelectedMovieId;
     private boolean mDualPanel;
-    private View mMoviesListPanel;
-    private View mMovieDetailPanel;
     @Inject
     SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
+
         BonMovieApp.getAppComponent().inject(this);
         setContentView(R.layout.activity_main);
-        mDualPanel = mMovieDetailPanel != null;
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putBoolean("dualpanel", mDualPanel);
-        editor.apply();
-        Log.d(TAG, "dualpanel:" + Boolean.toString(mDualPanel));
         // insert fragments
-        if(findViewById(R.id.fragment_container) != null){
+        if(findViewById(R.id.fragment_pagger) != null){
             if(savedInstanceState != null){
                 return;
             }
             MoviePaggerFragment paggerFragment = new MoviePaggerFragment();
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, paggerFragment).commit();
+                    .add(R.id.fragment_pagger, paggerFragment).commit();
         }
-
-
+        mDualPanel = false;
+        Log.d(TAG, "onCreate");
     }
 
     @Override
@@ -63,14 +53,19 @@ public class MainActivity extends FragmentActivity implements OnMovieSelectedLis
         intentFilter.addAction(BonMovieAction.ACTION_MOVIE_SELECTED);
         mSelectedReceiver = new MovieSelectedBroadcastReceiver(this);
         registerReceiver(mSelectedReceiver, intentFilter);
+        if(findViewById(R.id.fragment_detail) != null){
+            mDualPanel = true;
+        }
+        Log.d(TAG, "onStart DualPanel " + mDualPanel);
     }
+
+
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onStop");
         unregisterReceiver(mSelectedReceiver);
-
     }
 
     @Override
@@ -85,17 +80,35 @@ public class MainActivity extends FragmentActivity implements OnMovieSelectedLis
         return mSelectedMovieId;
     }
 
+    /**
+     *
+     */
     private void showMovieDetail(){
-        Log.d(TAG,"showMovieDetail: " + mSelectedMovieId );
+
         if(mDualPanel){
             // Tablet
+            Bundle bundle = new Bundle();
+            bundle.putInt("movie_id", mSelectedMovieId);
+            MovieDetailFragment detailFragment = new MovieDetailFragment();
+            detailFragment.setArguments(bundle);
+            if(getSupportFragmentManager().findFragmentByTag("current_detail_fragment") != null){
+                getSupportFragmentManager().
+                        beginTransaction().replace(R.id.fragment_detail, detailFragment,"current_detail_fragment")
+                        .commit();
+            } else {
+                getSupportFragmentManager().
+                        beginTransaction().add(R.id.fragment_detail, detailFragment,"current_detail_fragment")
+                        .commit();
+            }
+
+            Log.d(TAG,"showMovieDetail dualpanel: " + mSelectedMovieId );
         } else {
             // Phone
-            Log.d(TAG, "showMovieDetail: start new activity");
             Intent intent = new Intent();
             intent.setClass(this,MovieDetailActivity.class);
             intent.putExtra("movie_id", mSelectedMovieId);
             startActivity(intent);
+            Log.d(TAG, "showMovieDetail: start new activity");
         }
     }
 }

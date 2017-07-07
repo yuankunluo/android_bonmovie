@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.yuankunluo.bonmovie.R;
-import com.yuankunluo.bonmovie.data.model.MovieDetail;
 
 public class MovieDetailActivity extends FragmentActivity {
     private static final String TAG = MovieDetailActivity.class.getSimpleName();
@@ -29,7 +27,7 @@ public class MovieDetailActivity extends FragmentActivity {
         Bundle bundle = new Bundle();
         bundle.putInt("movie_id", movieIdExtra);
         mMovieDetailFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.fragment_container, mMovieDetailFragment);
+        fragmentTransaction.add(R.id.fragment_pagger, mMovieDetailFragment);
         fragmentTransaction.commit();
     }
 
