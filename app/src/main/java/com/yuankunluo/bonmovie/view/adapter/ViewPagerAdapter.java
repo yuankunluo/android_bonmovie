@@ -6,8 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.yuankunluo.bonmovie.R;
-import com.yuankunluo.bonmovie.view.listener.OnMovieSelectedListener;
-import com.yuankunluo.bonmovie.view.ui.MovieDetailFragment;
 import com.yuankunluo.bonmovie.view.ui.PopularMovieFragment;
 import com.yuankunluo.bonmovie.view.ui.TopRatedMovieFragment;
 import com.yuankunluo.bonmovie.view.ui.UserFavoriteMovieFragment;

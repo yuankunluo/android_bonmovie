@@ -16,25 +16,26 @@ import android.view.ViewGroup;
 
 import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.R;
-import com.yuankunluo.bonmovie.data.model.PopularMovie;
+import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
 import com.yuankunluo.bonmovie.data.model.UserFavoriteMovie;
 import com.yuankunluo.bonmovie.services.BonMovieAction;
 import com.yuankunluo.bonmovie.services.listener.OnSwipeRefreshListener;
 import com.yuankunluo.bonmovie.services.receiver.DBBRefreshBroadcastReceiver;
 import com.yuankunluo.bonmovie.view.adapter.MoviesRecyclerViewAdapter;
 import com.yuankunluo.bonmovie.view.listener.EndlessRecyclerViewScrollListener;
-import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
+import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
 import com.yuankunluo.bonmovie.viewmodel.UserFavoriteMovieViewModel;
 
 /**
  * Created by yuank on 2017-06-22.
  */
 
-public class UserFavoriteMovieFragment extends LifecycleFragment  {
+public class UserFavoriteMovieFragment extends LifecycleFragment {
     final String TAG = UserFavoriteMovieFragment.class.getSimpleName();
     private UserFavoriteMovieViewModel mViewModel;
     private RecyclerView mRecyclerView;
     private MoviesRecyclerViewAdapter<UserFavoriteMovie> movieRecyclerViewAdapter;
+    private BroadcastReceiver mBroadcastReceiver;
     private RecyclerView.LayoutManager mLayoutManager;
 
 
@@ -46,7 +47,6 @@ public class UserFavoriteMovieFragment extends LifecycleFragment  {
 
 
 
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -54,8 +54,8 @@ public class UserFavoriteMovieFragment extends LifecycleFragment  {
         mViewModel = ViewModelProviders.of(this).get(UserFavoriteMovieViewModel.class);
         BonMovieApp.getAppComponent().inject(mViewModel);
         mViewModel.init();
-        movieRecyclerViewAdapter = new MoviesRecyclerViewAdapter<>(getContext());
         mViewModel.getMovies().observe(this, movieRecyclerViewAdapter);
+
     }
 
 
@@ -65,12 +65,20 @@ public class UserFavoriteMovieFragment extends LifecycleFragment  {
         Log.d(TAG, "onCreateView");
         View root =  inflater.inflate(R.layout.fragment_movies, container, false);
         mRecyclerView = root.findViewById(R.id.recyclerview_movies);
+        // set layout manager
         int columnNumber = getResources().getInteger(R.integer.grid_column);
         mLayoutManager = new GridLayoutManager(getContext(),columnNumber, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
+        movieRecyclerViewAdapter = new MoviesRecyclerViewAdapter<>(getContext());
         mRecyclerView.setAdapter(movieRecyclerViewAdapter);
+
+
         return root;
     }
 
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

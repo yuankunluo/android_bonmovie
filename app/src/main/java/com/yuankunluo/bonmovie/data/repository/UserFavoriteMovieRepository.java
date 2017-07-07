@@ -1,10 +1,13 @@
 package com.yuankunluo.bonmovie.data.repository;
 
 import android.arch.lifecycle.LiveData;
+import android.content.Intent;
 import android.util.Log;
 
+import com.yuankunluo.bonmovie.BonMovieApp;
 import com.yuankunluo.bonmovie.data.dao.UserFavoriteMovieDao;
 import com.yuankunluo.bonmovie.data.model.UserFavoriteMovie;
+import com.yuankunluo.bonmovie.services.BonMovieAction;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -28,7 +31,6 @@ public class UserFavoriteMovieRepository {
         mExecutor = executorService;
     }
 
-
     public LiveData<List<UserFavoriteMovie>> getAllMovies(){
         return mDao.getAllMovies();
     }
@@ -37,6 +39,7 @@ public class UserFavoriteMovieRepository {
         mExecutor.execute(new Runnable() {
             @Override
             public void run() {
+                movie.setInsert_timestamp(System.currentTimeMillis());
                 mDao.insertMovies(movie);
             }
         });

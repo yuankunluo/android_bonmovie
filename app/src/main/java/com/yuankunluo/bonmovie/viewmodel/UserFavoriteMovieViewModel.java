@@ -45,4 +45,7 @@ public class UserFavoriteMovieViewModel extends ViewModel {
     }
 
 
+    public void forceRefresh(){
+        mMovies = mRepository.getAllMovies();
+    }
 }
