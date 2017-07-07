@@ -5,3 +5,5 @@ To reviewer:
 
 Put your API-KEY from THEMOVIEDB into res/values/themoviedb.xml at line 13.
 
+Scrrenshots:
+http://imgur.com/a/5ukOI
