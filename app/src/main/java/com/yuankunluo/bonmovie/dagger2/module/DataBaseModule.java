@@ -30,7 +30,7 @@ public class DataBaseModule {
     @Provides
     @Singleton
     BonMovieDatabase provideBonMovieDatabase(@Named("appcontext") Context context){
-        BonMovieDatabase db = Room.inMemoryDatabaseBuilder(context, BonMovieDatabase.class).build();
+        BonMovieDatabase db = Room.databaseBuilder(context, BonMovieDatabase.class, "bonmovie.db").build();
         return db;
     }
 

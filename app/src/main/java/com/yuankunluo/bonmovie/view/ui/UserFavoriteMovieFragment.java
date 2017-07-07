@@ -63,7 +63,7 @@ public class UserFavoriteMovieFragment extends LifecycleFragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
-        View root =  inflater.inflate(R.layout.fragment_movies, container, false);
+        View root =  inflater.inflate(R.layout.fragment_user_favorite_movies, container, false);
         mRecyclerView = root.findViewById(R.id.recyclerview_movies);
         // set layout manager
         int columnNumber = getResources().getInteger(R.integer.grid_column);
