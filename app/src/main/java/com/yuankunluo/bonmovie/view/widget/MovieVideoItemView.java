@@ -55,9 +55,13 @@ public class MovieVideoItemView extends ConstraintLayout {
             public void onClick(View view) {
                 if(mMovieVideo != null) {
                     Log.d(TAG, "onClick" + mMovieVideo.key);
-                    mContext.startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("http://www.youtube.com/watch?v="+mMovieVideo.key)));
-                    Log.d(TAG, "onClick start new activity youtube " + mMovieVideo.key );
+                    Intent youtubeIntent = new Intent();
+                    youtubeIntent.setAction(Intent.ACTION_VIEW);
+                    youtubeIntent.setData(Uri.parse("http://www.youtube.com/watch?v="+mMovieVideo.key));
+                    if(youtubeIntent.resolveActivity(mContext.getPackageManager()) != null){
+                        mContext.startActivity(youtubeIntent);
+                        Log.d(TAG, "onClick start new activity youtube " + mMovieVideo.key );
+                    }
                 }
             }
         });
