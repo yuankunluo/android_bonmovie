@@ -19,6 +19,10 @@ public class MovieDetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         Intent intent = getIntent();
+        if(intent == null){
+            Log.e(TAG, "empty intent");
+            return;
+        }
         int movieIdExtra = intent.getIntExtra("movie_id",0);
         Log.d(TAG,"onCreate : " + movieIdExtra );
         FragmentManager fragmentManager = getSupportFragmentManager();

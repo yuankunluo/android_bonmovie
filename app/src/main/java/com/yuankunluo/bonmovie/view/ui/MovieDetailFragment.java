@@ -4,7 +4,6 @@ import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
@@ -49,6 +49,7 @@ public class MovieDetailFragment extends LifecycleFragment {
     private Button mFavoriteButtonAdd;
     private Button mFavoriteButtonRemove;
     private MovieDetail mMovieDetail;
+    private ScrollView mScrollView;
 
     private int mMovieId;
     @Inject

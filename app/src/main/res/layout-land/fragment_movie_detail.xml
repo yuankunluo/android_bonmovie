@@ -11,6 +11,7 @@
     </data>
 
     <ScrollView
+        android:id="@+id/scrollView_movie_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.constraint.ConstraintLayout
