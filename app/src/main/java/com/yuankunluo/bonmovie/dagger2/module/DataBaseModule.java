@@ -12,8 +12,7 @@ import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
 import com.yuankunluo.bonmovie.data.dao.TopRatedMovieDao;
 import com.yuankunluo.bonmovie.data.dao.UserFavoriteMovieDao;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
-import com.yuankunluo.bonmovie.data.model.MovieVideo;
-import com.yuankunluo.bonmovie.data.model.UserFavoriteMovie;
+import com.yuankunluo.bonmovie.data.contentprovider.UserFavoriteDbHelper;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -33,6 +32,14 @@ public class DataBaseModule {
         BonMovieDatabase db = Room.databaseBuilder(context, BonMovieDatabase.class, "bonmovie.db").build();
         return db;
     }
+
+
+    @Provides
+    @Singleton
+    UserFavoriteDbHelper provideUserFavoriteDbHelper(@Named("appcontext") Context context){
+        return new UserFavoriteDbHelper(context);
+    }
+
 
     @Provides
     PopularMovieDao providePopularMovieDao(BonMovieDatabase db){
