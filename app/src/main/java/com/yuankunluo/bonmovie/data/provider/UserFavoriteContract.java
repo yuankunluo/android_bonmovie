@@ -47,7 +47,7 @@ public class UserFavoriteContract {
          */
         public static final String TABLE_NAME = "user_fav";
 
-        public static final String COLUMN_MOVIE_ID = "id";
+        public static final String COLUMN_MOVIE_ID = "movie_id";
 
         public static final String COLUMN_POSTER_URL = "poster_url";
 

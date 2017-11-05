@@ -32,23 +32,31 @@ public class MovieGridViewHolder extends RecyclerView.ViewHolder {
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i(TAG, Integer.toString(mMovieId));
-                Intent intent = new Intent();
-                intent.setAction(BonMovieAction.ACTION_MOVIE_SELECTED);
-                intent.putExtra("movie_id", mMovieId);
-                // send a click broadcast
-                context.sendBroadcast(intent);
+                if ( mMovieId > 0) {
+                    Log.i(TAG, Integer.toString(mMovieId));
+                    Intent intent = new Intent();
+                    intent.setAction(BonMovieAction.ACTION_MOVIE_SELECTED);
+                    intent.putExtra("movie_id", mMovieId);
+                    // send a click broadcast
+                    context.sendBroadcast(intent);
+                } else {
+                    Log.d(TAG, "No movie id");
+                }
             }
         });
     }
 
     public void setMovieId(int mMovieId) {
+        Log.d(TAG, "setMovieId: " + mMovieId);
         this.mMovieId = mMovieId;
     }
 
     public void setImageUrl(String url){
-        mImageLoader.get(url, ImageLoader.getImageListener(mImageView, R.drawable.ic_image_black_48px, R.drawable.ic_broken_image_black_48px));
-        mImageView.setImageUrl(url, mImageLoader);
+        if (null != url) {
+            Log.d(TAG, "setImageUrl: " + url);
+            mImageLoader.get(url, ImageLoader.getImageListener(mImageView, R.drawable.ic_image_black_48px, R.drawable.ic_broken_image_black_48px));
+            mImageView.setImageUrl(url, mImageLoader);
+        }
     }
 
 }

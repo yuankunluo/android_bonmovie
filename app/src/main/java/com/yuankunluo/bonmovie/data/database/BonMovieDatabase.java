@@ -21,7 +21,7 @@ import com.yuankunluo.bonmovie.data.model.TopRatedMovie;
  * Created by yuank on 2017-06-21.
  */
 
-@Database(entities = {PopularMovie.class, UserFavoriteMovie.class,
+@Database(entities = {PopularMovie.class,
         TopRatedMovie.class , MovieDetail.class, MovieReview.class, MovieVideo.class},
         version = 1, exportSchema = false)
 @TypeConverters({DateConverter.class})

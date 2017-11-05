@@ -42,7 +42,8 @@ public class UserFavoriteDbHelper extends SQLiteOpenHelper{
          */
         final String SQL_CREATET_TABLE_USER_FAV =
                 "CREATE TABLE " + UserFavoriteContract.UserFavEntry.TABLE_NAME + " (" +
-                        UserFavoriteContract.UserFavEntry.COLUMN_MOVIE_ID + " INTEGER PRIMARY KEY, " +
+                        "_id INTEGER PRIMARY KEY ASC, " +
+                        UserFavoriteContract.UserFavEntry.COLUMN_MOVIE_ID + " INTEGER, " +
                         UserFavoriteContract.UserFavEntry.COLUMN_POSTER_URL  + " TEXT, " +
                         UserFavoriteContract.UserFavEntry.COLUMN_INSERT_TIMESTAMP + " INTEGER ); ";
 

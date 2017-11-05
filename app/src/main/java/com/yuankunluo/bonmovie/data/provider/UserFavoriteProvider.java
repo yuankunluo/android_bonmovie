@@ -83,6 +83,7 @@ public class UserFavoriteProvider extends ContentProvider {
                 break;
             }
             case CODE_USER_FAV: {
+                Log.d(TAG, "query:" + uri);
                 cursor = mDbHelper.getReadableDatabase().query(
                         UserFavoriteContract.UserFavEntry.TABLE_NAME,
                         projection,
