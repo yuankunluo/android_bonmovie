@@ -5,10 +5,8 @@ import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.yuankunluo.bonmovie.data.model.MovieDetail;
-import com.yuankunluo.bonmovie.data.model.MovieReview;
 import com.yuankunluo.bonmovie.data.model.MovieVideo;
 import com.yuankunluo.bonmovie.data.repository.MovieDetailRepository;
-import com.yuankunluo.bonmovie.data.repository.UserFavoriteMovieRepository;
 
 import java.util.List;
 

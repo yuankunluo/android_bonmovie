@@ -29,7 +29,6 @@ import com.yuankunluo.bonmovie.databinding.FragmentMovieDetailBinding;
 import com.yuankunluo.bonmovie.data.provider.UserFavoriteContract;
 import com.yuankunluo.bonmovie.view.widget.MovieVideoItemView;
 import com.yuankunluo.bonmovie.viewmodel.MovieDetailViewModel;
-import com.yuankunluo.bonmovie.viewmodel.UserFavoriteMovieViewModel;
 
 import java.util.List;
 

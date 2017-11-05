@@ -1,7 +1,6 @@
 package com.yuankunluo.bonmovie;
 
 import android.app.Application;
-import android.content.Intent;
 import android.util.Log;
 
 import com.yuankunluo.bonmovie.dagger2.component.AppComponent;

@@ -10,7 +10,6 @@ import com.yuankunluo.bonmovie.data.dao.MovieReviewDao;
 import com.yuankunluo.bonmovie.data.dao.MovieVideoDao;
 import com.yuankunluo.bonmovie.data.dao.PopularMovieDao;
 import com.yuankunluo.bonmovie.data.dao.TopRatedMovieDao;
-import com.yuankunluo.bonmovie.data.dao.UserFavoriteMovieDao;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 
 import javax.inject.Named;
@@ -64,8 +63,5 @@ public class DataBaseModule {
     MovieVideoDao provideMovieVideoDao(BonMovieDatabase db){
         return db.movieVideoDao();
     }
-    @Provides
-    UserFavoriteMovieDao provideUserFavoriteMovieDao(BonMovieDatabase db){
-        return db.userFavoriteMovieDao();
-    }
+
 }

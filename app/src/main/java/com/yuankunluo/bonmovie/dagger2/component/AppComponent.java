@@ -13,7 +13,6 @@ import com.yuankunluo.bonmovie.dagger2.module.SharedPreferencesModule;
 import com.yuankunluo.bonmovie.dagger2.module.UtiltyModule;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 import com.yuankunluo.bonmovie.data.repository.MovieShortRepository;
-import com.yuankunluo.bonmovie.data.repository.UserFavoriteMovieRepository;
 import com.yuankunluo.bonmovie.services.jobs.FetchPopularMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.jobs.FetchTopRatedMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.utilities.TheMovieApiUriBuilder;
@@ -27,7 +26,6 @@ import com.yuankunluo.bonmovie.viewmodel.MovieDetailViewModel;
 import com.yuankunluo.bonmovie.viewmodel.MovieReviewsViewModel;
 import com.yuankunluo.bonmovie.viewmodel.PopularMovieViewModel;
 import com.yuankunluo.bonmovie.viewmodel.TopRatedMovieViewModel;
-import com.yuankunluo.bonmovie.viewmodel.UserFavoriteMovieViewModel;
 
 import javax.inject.Singleton;
 
@@ -46,7 +44,6 @@ public interface AppComponent {
     void inject(TopRatedMovieViewModel viewModel);
     void inject(MovieDetailViewModel viewModel);
     void inject(MovieReviewsViewModel viewModel);
-    void inject(UserFavoriteMovieViewModel viewModel);
     // Jobs
     void inject(FetchPopularMoviesFromApiJobService jobService);
     void inject(FetchTopRatedMoviesFromApiJobService jobService);
@@ -58,7 +55,6 @@ public interface AppComponent {
     void inject(PopularMovieFragment fragment);
     // Repository
     MovieShortRepository getMovieRepository();
-    UserFavoriteMovieRepository getUserFavoriteRepository();
     // Database
     BonMovieDatabase getDatabase();
     // SharedPreferences
