@@ -43,7 +43,6 @@ public class MovieDetailFragment extends LifecycleFragment {
     final static String TAG = MovieDetailFragment.class.getSimpleName();
 
     private MovieDetailViewModel mViewModel;
-    private UserFavoriteMovieViewModel mUserFavoriteViewModel;
     private NetworkImageView mImageView;
     private FragmentMovieDetailBinding mBinding;
     private ProgressBar mProgressBar;
@@ -87,6 +86,9 @@ public class MovieDetailFragment extends LifecycleFragment {
                     mProgressBar.setVisibility(View.INVISIBLE);
                     mImageView.setImageUrl(movieDetail.getPosterImageUrl(), mImageLoader);
                     mBinding.setMovieDetail(movieDetail);
+                    // Initialize Buttons
+                    mObserver.onChange(true,
+                            UserFavoriteContract.UserFavEntry.buildContentUriWithMovieId(mMovieId));
                 }
             }
         });
@@ -106,8 +108,7 @@ public class MovieDetailFragment extends LifecycleFragment {
                 }
             }
         });
-        mObserver.onChange(true,
-                UserFavoriteContract.UserFavEntry.buildContentUriWithMovieId(mMovieId));
+
     }
 
     class UserFavoriteMovieObserver extends ContentObserver{
@@ -123,10 +124,14 @@ public class MovieDetailFragment extends LifecycleFragment {
             if (cursor.getCount()>0) {
                 // already favorite
                 mFavoriteButtonAdd.setVisibility(View.INVISIBLE);
+                mFavoriteButtonAdd.setEnabled(false);
                 mFavoriteButtonRemove.setVisibility(View.VISIBLE);
+                mFavoriteButtonRemove.setEnabled(true);
             } else {
                 mFavoriteButtonAdd.setVisibility(View.VISIBLE);
+                mFavoriteButtonAdd.setEnabled(true);
                 mFavoriteButtonRemove.setVisibility(View.INVISIBLE);
+                mFavoriteButtonRemove.setEnabled(false);
             }
             cursor.close();
 
@@ -169,6 +174,7 @@ public class MovieDetailFragment extends LifecycleFragment {
         // Favorite Button ADD
         mFavoriteButtonAdd = root.findViewById(R.id.bt_favorite_add);
         mFavoriteButtonAdd.setEnabled(true);
+        mFavoriteButtonAdd.setVisibility(View.INVISIBLE);
         mFavoriteButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,6 +194,7 @@ public class MovieDetailFragment extends LifecycleFragment {
         });
         mFavoriteButtonRemove = root.findViewById(R.id.bt_favorite_remove);
         mFavoriteButtonRemove.setEnabled(true);
+        mFavoriteButtonRemove.setVisibility(View.INVISIBLE);
         mFavoriteButtonRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
