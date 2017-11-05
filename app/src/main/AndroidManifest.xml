@@ -54,6 +54,11 @@
             </intent-filter>
         </receiver>
 
+        <provider
+            android:authorities="com.yuankunluo.bonmovie"
+            android:name=".data.provider.UserFavoriteProvider"
+            android:exported="false" />
+
         <activity android:name=".view.ui.MovieDetailActivity"></activity>
     </application>
 

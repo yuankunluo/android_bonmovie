@@ -14,7 +14,6 @@ import com.yuankunluo.bonmovie.dagger2.module.UtiltyModule;
 import com.yuankunluo.bonmovie.data.database.BonMovieDatabase;
 import com.yuankunluo.bonmovie.data.repository.MovieShortRepository;
 import com.yuankunluo.bonmovie.data.repository.UserFavoriteMovieRepository;
-import com.yuankunluo.bonmovie.data.contentprovider.UserFavoriteDbHelper;
 import com.yuankunluo.bonmovie.services.jobs.FetchPopularMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.jobs.FetchTopRatedMoviesFromApiJobService;
 import com.yuankunluo.bonmovie.services.utilities.TheMovieApiUriBuilder;
@@ -62,7 +61,6 @@ public interface AppComponent {
     UserFavoriteMovieRepository getUserFavoriteRepository();
     // Database
     BonMovieDatabase getDatabase();
-    UserFavoriteDbHelper getUserFavoriteDbHelper();
     // SharedPreferences
     SharedPreferences getSharedPreference();
     // Services
